@@ -2,7 +2,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
-def worksheet(key):
+def worksheet(key, page=0):
     # Escopo utilizado
     scope = ["https://spreadsheets.google.com/feeds"]
 
@@ -21,6 +21,6 @@ def worksheet(key):
     # wks = gc.open('Teste Python')
 
     # Seleciona a primeira página da planilha
-    worksheet = wks.get_worksheet(0)
+    worksheet = wks.get_worksheet(page)
 
     return worksheet
