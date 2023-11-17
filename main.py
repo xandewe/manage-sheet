@@ -14,8 +14,8 @@ def sheet_nu_ago():
     )
 
     # convert_values_sheet()
-    calculate_expense()
     calculate_revenue()
+    calculate_expense()
 
 
 def main():
