@@ -2,7 +2,7 @@ from utils import worksheet
 from . import key
 import csv
 
-ws = worksheet(key, 1)
+ws = worksheet(key, 7)
 
 
 def convert_values_sheet():
@@ -64,7 +64,10 @@ def calculate_revenue():
         # import ipdb
 
         # ipdb.set_trace()
-        if "estorno" in description.lower():
+        if (
+            "estorno" in description.lower()
+            or "reembolso recebido" in description.lower()
+        ):
             reversal += convert_number
 
         elif convert_number > 0:
