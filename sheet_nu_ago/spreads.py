@@ -56,7 +56,7 @@ def calculate_revenue():
     values_list = ws.get_values()
 
     revenue = 0
-    reversal = 0
+    return_money = 0
 
     for item in values_list[1:]:
         date, value, id, description, *_ = item
@@ -68,10 +68,10 @@ def calculate_revenue():
             "estorno" in description.lower()
             or "reembolso recebido" in description.lower()
         ):
-            reversal += convert_number
+            return_money += convert_number
 
         elif convert_number > 0:
             revenue += convert_number
 
     ws.update_cell(2, 5, revenue)
-    ws.update_cell(2, 6, reversal)
+    ws.update_cell(2, 6, return_money)
