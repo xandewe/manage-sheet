@@ -2,7 +2,7 @@ from utils import worksheet
 from . import key
 import csv
 
-ws = worksheet(key, 5)
+ws = worksheet(key, 1)
 
 
 def convert_values_sheet():
@@ -34,10 +34,10 @@ def calculate_expense():
         date, value, id, description, *_ = item
         convert_number = float(value)
 
-        if "Aplicação RDB" in description:
+        if "aplicação rdb" in description.lower():
             invested += convert_number
 
-        elif "Pagamento de fatura" in description:
+        elif "pagamento de fatura" in description.lower():
             invoice_card += convert_number
 
         elif convert_number < 0:
@@ -50,7 +50,7 @@ def calculate_expense():
 
 def calculate_revenue():
     ws.update_cell(1, 5, "Entrada")
-    ws.update_cell(1, 6, "Estorno")
+    ws.update_cell(1, 6, "Estorno/Reembolso")
 
     # values_list = ws.col_values(2)
     values_list = ws.get_values()
