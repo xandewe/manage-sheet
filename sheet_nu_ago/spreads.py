@@ -1,11 +1,9 @@
 from utils import worksheet
 from . import key
-import csv
-
-ws = worksheet(key, 7)
+from gspread.worksheet import Worksheet
 
 
-def convert_values_sheet():
+def convert_values_sheet(ws: Worksheet):
     values_list = ws.col_values(2)
     line = 2
 
@@ -14,7 +12,9 @@ def convert_values_sheet():
         ws.update_cell(line, 2, convert_number)
 
 
-def calculate_expense():
+def calculate_expense(page=0):
+    ws = worksheet(key, page)
+
     ws.update_cell(1, 8, "Saida")
     ws.update_cell(1, 9, "Pagamento fatura credito")
     ws.update_cell(1, 10, "Investido")
@@ -48,7 +48,9 @@ def calculate_expense():
     ws.update_cell(2, 10, invested)
 
 
-def calculate_revenue():
+def calculate_revenue(page=0):
+    ws = worksheet(key, page)
+
     ws.update_cell(1, 5, "Entrada")
     ws.update_cell(1, 6, "Estorno/Reembolso")
     ws.update_cell(1, 7, "Resgate Invest.")
