@@ -15,9 +15,9 @@ def convert_values_sheet():
 
 
 def calculate_expense():
-    ws.update_cell(1, 7, "Saida")
-    ws.update_cell(1, 8, "Pagamento fatura credito")
-    ws.update_cell(1, 9, "Investido")
+    ws.update_cell(1, 8, "Saida")
+    ws.update_cell(1, 9, "Pagamento fatura credito")
+    ws.update_cell(1, 10, "Investido")
 
     # values_list = ws.col_values(2)
     values_list = ws.get_values()
@@ -43,20 +43,22 @@ def calculate_expense():
         elif convert_number < 0:
             expense += convert_number
 
-    ws.update_cell(2, 7, expense)
-    ws.update_cell(2, 8, invoice_card)
-    ws.update_cell(2, 9, invested)
+    ws.update_cell(2, 8, expense)
+    ws.update_cell(2, 9, invoice_card)
+    ws.update_cell(2, 10, invested)
 
 
 def calculate_revenue():
     ws.update_cell(1, 5, "Entrada")
     ws.update_cell(1, 6, "Estorno/Reembolso")
+    ws.update_cell(1, 7, "Resgate Invest.")
 
     # values_list = ws.col_values(2)
     values_list = ws.get_values()
 
     revenue = 0
     return_money = 0
+    rescue = 0
 
     for item in values_list[1:]:
         date, value, id, description, *_ = item
@@ -70,8 +72,12 @@ def calculate_revenue():
         ):
             return_money += convert_number
 
+        elif "resgate" in description.lower():
+            rescue += convert_number
+
         elif convert_number > 0:
             revenue += convert_number
 
     ws.update_cell(2, 5, revenue)
     ws.update_cell(2, 6, return_money)
+    ws.update_cell(2, 7, rescue)
