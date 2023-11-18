@@ -15,5 +15,5 @@ def update_all_pages():
             if index == 5:
                 sleep(15)
 
-        except WorksheetNotFound as err:
+        except WorksheetNotFound as _:
             print(f"WorkSheet do mês {index} não encontrada!")

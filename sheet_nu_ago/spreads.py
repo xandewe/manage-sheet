@@ -19,7 +19,6 @@ def calculate_expense(page=0):
     ws.update_cell(1, 9, "Pagamento fatura credito")
     ws.update_cell(1, 10, "Investido")
 
-    # values_list = ws.col_values(2)
     values_list = ws.get_values()
 
     expense = 0
@@ -27,10 +26,6 @@ def calculate_expense(page=0):
     invested = 0
 
     for item in values_list[1:]:
-        # import ipdb
-
-        # ipdb.set_trace()
-
         date, value, id, description, *_ = item
         convert_number = float(value)
 
@@ -55,7 +50,6 @@ def calculate_revenue(page=0):
     ws.update_cell(1, 6, "Estorno/Reembolso")
     ws.update_cell(1, 7, "Resgate Invest.")
 
-    # values_list = ws.col_values(2)
     values_list = ws.get_values()
 
     revenue = 0
@@ -65,9 +59,7 @@ def calculate_revenue(page=0):
     for item in values_list[1:]:
         date, value, id, description, *_ = item
         convert_number = float(value)
-        # import ipdb
 
-        # ipdb.set_trace()
         if (
             "estorno" in description.lower()
             or "reembolso recebido" in description.lower()
