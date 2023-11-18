@@ -7,15 +7,15 @@ def sheet_teste_integracao():
 
 
 def sheet_nu_ago():
-    from sheet_nu_ago.spreads import (
-        convert_values_sheet,
-        calculate_expense,
-        calculate_revenue,
-    )
+    from sheet_nu_ago import key, spreads, services
+    from utils import worksheet
 
-    # convert_values_sheet()
-    calculate_revenue()
-    calculate_expense()
+    # ws = worksheet(key, 8)
+
+    services.update_all_pages()
+
+    # spreads.calculate_revenue()
+    # spreads.calculate_expense()
 
 
 def main():
