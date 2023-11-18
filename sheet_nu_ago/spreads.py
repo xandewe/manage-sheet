@@ -15,11 +15,15 @@ def convert_values_sheet(ws: Worksheet):
 def calculate_expense(page=0):
     ws = worksheet(key, page)
 
+    values_list = ws.get_values()
+
+    if not values_list:
+        print(f"Dados não encontrados!")
+        return None
+
     ws.update_cell(1, 8, "Saida")
     ws.update_cell(1, 9, "Pagamento fatura credito")
     ws.update_cell(1, 10, "Investido")
-
-    values_list = ws.get_values()
 
     expense = 0
     invoice_card = 0
@@ -46,11 +50,15 @@ def calculate_expense(page=0):
 def calculate_revenue(page=0):
     ws = worksheet(key, page)
 
+    values_list = ws.get_values()
+
+    if not values_list:
+        print(f"Dados não encontrados!")
+        return None
+
     ws.update_cell(1, 5, "Entrada")
     ws.update_cell(1, 6, "Estorno/Reembolso")
     ws.update_cell(1, 7, "Resgate Invest.")
-
-    values_list = ws.get_values()
 
     revenue = 0
     return_money = 0
