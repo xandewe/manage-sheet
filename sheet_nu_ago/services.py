@@ -1,4 +1,3 @@
-
 def update_all_pages():
     from gspread import WorksheetNotFound
     from . import spreads
@@ -9,11 +8,11 @@ def update_all_pages():
             print(f"CALCULANDO MÊS {index}")
             spreads.calculate_revenue(index)
             spreads.calculate_expense(index)
-            print(f"MÊS {index} FINALIZADO!!!")
+            print(f"MÊS {index} FINALIZADO!!!\n")
 
             # Necessário para evitar status code 429
-            if index == 5:
-                sleep(15)
+            if index == 6:
+                sleep(17)
 
         except WorksheetNotFound as _:
             print(f"WorkSheet do mês {index} não encontrada!")
