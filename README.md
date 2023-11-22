@@ -3,4 +3,8 @@
 ...
 
 ## Como utilizar
-- Copie o `client_email` das credencias obtidas do GCP (Google Cloud Platafform) e compartilhe o sheets com esse email como editor; 
+- Crie um projeto no GCP (Google Cloud Platafform) e adicione a API do Google Sheets;
+- Gerar suas credenciais pelo GCP e criar uma key do tipo JSON;
+- Colocar o arquivo JSON na raiz da aplicação com o nome `credentials.json`;
+- Copie o `client_email` do arquivo *credentials.json* e compartilhe o sheets com esse email como editor;
+- Copie o ID da planilha que deseja manipular e cole em seu **.env** (DICA: para pegar o ID da planilha abra ela e copie tudo que está entre as "/" após `docs.google.com/spreadsheets/d/`)
