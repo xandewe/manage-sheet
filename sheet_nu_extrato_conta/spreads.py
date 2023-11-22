@@ -26,7 +26,7 @@ def calculate_expense(page=0):
         print(f"Dados não encontrados!")
         return None
 
-    fmt = cell_format(backgroundColor=color(0.8, 0.4, 0.4))
+    fmt = cell_format(backgroundColor=color(206 / 255, 76 / 255, 61 / 255))
 
     ws.update_cell(1, 8, "Saida")
     ws.update_cell(1, 9, "Pagamento fatura credito")
@@ -69,7 +69,7 @@ def calculate_revenue(page=0):
         print(f"Dados não encontrados!")
         return None
 
-    fmt = cell_format(backgroundColor=color(0.4, 0.8, 0.4))
+    fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
 
     ws.update_cell(1, 5, "Entrada")
     ws.update_cell(1, 6, "Estorno/Reembolso")
