@@ -6,16 +6,15 @@ def sheet_teste_integracao():
     set_title(*titles)
 
 
-
 def sheet_nu_ago():
     from sheet_nu_extrato_conta import spreads, services
 
     # services.update_all_pages()
 
-    # month = int(input("Digite o numero do mês que deseja processar os dados: "))
+    month = int(input("Digite o numero do mês que deseja processar os dados: "))
 
-    spreads.calculate_income()
-    spreads.calculate_expense()
+    spreads.calculate_income(month)
+    spreads.calculate_expense(month)
 
 
 def main():
