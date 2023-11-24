@@ -17,7 +17,7 @@ def convert_values_sheet(ws: Worksheet):
         ws.update_cell(line, 2, convert_number)
 
 
-def calculate_expense(page=0):
+def calculate_expense(page=1):
     ws = worksheet(key, page)
 
     values_list = ws.get_values()
@@ -60,7 +60,7 @@ def calculate_expense(page=0):
     ws.update_cell(2, 10, invested)
 
 
-def calculate_revenue(page=0):
+def calculate_income(page=1):
     ws = worksheet(key, page)
 
     values_list = ws.get_values()
@@ -75,7 +75,7 @@ def calculate_revenue(page=0):
     ws.update_cell(1, 6, "Estorno/Reembolso")
     ws.update_cell(1, 7, "Resgate Invest.")
 
-    revenue = 0
+    income = 0
     return_money = 0
     rescue = 0
     line = 2
@@ -96,11 +96,11 @@ def calculate_revenue(page=0):
             format_cell_range(ws, f"A{line}:D{line}", fmt)
 
         elif convert_number > 0:
-            revenue += convert_number
+            income += convert_number
             format_cell_range(ws, f"A{line}:D{line}", fmt)
 
         line += 1
 
-    ws.update_cell(2, 5, revenue)
+    ws.update_cell(2, 5, income)
     ws.update_cell(2, 6, return_money)
     ws.update_cell(2, 7, rescue)

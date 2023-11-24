@@ -6,7 +6,7 @@ def update_all_pages():
     for index in range(1, 13):
         try:
             print(f"CALCULANDO MÊS {index}")
-            spreads.calculate_revenue(index)
+            spreads.calculate_income(index)
             spreads.calculate_expense(index)
             print(f"MÊS {index} FINALIZADO!!!\n")
 
