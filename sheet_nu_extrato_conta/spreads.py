@@ -28,9 +28,9 @@ def calculate_expense(page=1):
 
     fmt = cell_format(backgroundColor=color(206 / 255, 76 / 255, 61 / 255))
 
-    ws.update_cell(1, 8, "Saida")
-    ws.update_cell(1, 9, "Pagamento fatura credito")
-    ws.update_cell(1, 10, "Investido")
+    ws.update_cell(1, 10, "Saida")
+    ws.update_cell(1, 11, "Pagamento fatura credito")
+    ws.update_cell(1, 12, "Investido")
 
     expense = 0
     invoice_card = 0
@@ -55,9 +55,9 @@ def calculate_expense(page=1):
 
         line += 1
 
-    ws.update_cell(2, 8, expense)
-    ws.update_cell(2, 9, invoice_card)
-    ws.update_cell(2, 10, invested)
+    ws.update_cell(2, 10, expense)
+    ws.update_cell(2, 11, invoice_card)
+    ws.update_cell(2, 12, invested)
 
 
 def calculate_income(page=1):
@@ -71,9 +71,11 @@ def calculate_income(page=1):
 
     fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
 
-    ws.update_cell(1, 5, "Entrada")
-    ws.update_cell(1, 6, "Estorno/Reembolso")
-    ws.update_cell(1, 7, "Resgate Invest.")
+    ws.update_cell(1, 5, "Apelido")
+    ws.update_cell(1, 6, "Tag")
+    ws.update_cell(1, 7, "Entrada")
+    ws.update_cell(1, 8, "Estorno/Reembolso")
+    ws.update_cell(1, 9, "Resgate Invest.")
 
     income = 0
     return_money = 0
@@ -101,6 +103,6 @@ def calculate_income(page=1):
 
         line += 1
 
-    ws.update_cell(2, 5, income)
-    ws.update_cell(2, 6, return_money)
-    ws.update_cell(2, 7, rescue)
+    ws.update_cell(2, 7, income)
+    ws.update_cell(2, 8, return_money)
+    ws.update_cell(2, 9, rescue)
