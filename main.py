@@ -1,25 +1,58 @@
-def sheet_teste_integracao():
-    from sheet_teste_integracao.services import insert_titles
-    from sheet_teste_integracao.spreads import set_title
+def sheet_nu_extrato_credito():
+    from sheet_nu_extrato_credito import spreads, services
 
-    titles = insert_titles()
-    set_title(*titles)
+    update_automatic = input(
+        "Deseja fazer atualização automatica de todos os meses (s/n): "
+    ).lower()
+
+    if update_automatic == "s":
+        services.update_all_pages()
+
+    else:
+        month = int(
+            input("Digite o numero do mês que deseja processar os dados (CREDITO): ")
+        )
+
+        spreads.calculate_expense_credit(month)
+        spreads.calculate_payment(month)
 
 
-def sheet_nu_ago():
+def sheet_nu_extrato_conta():
     from sheet_nu_extrato_conta import spreads, services
 
-    # services.update_all_pages()
+    update_automatic = input(
+        "Deseja fazer atualização automatica de todos os meses (s/n): "
+    ).lower()
 
-    month = int(input("Digite o numero do mês que deseja processar os dados: "))
+    if update_automatic == "s":
+        services.update_all_pages()
 
-    spreads.calculate_income(month)
-    spreads.calculate_expense(month)
+    else:
+        month = int(
+            input("Digite o numero do mês que deseja processar os dados (CONTA): ")
+        )
+
+        spreads.calculate_income(month)
+        spreads.calculate_expense(month)
 
 
 def main():
-    # sheet_teste_integracao()
-    sheet_nu_ago()
+    while True:
+        print("Deseja fazer operação em qual opção: \n1 - CREDITO\n2 - CONTA\n")
+        opc = int(input("Insira o valor: "))
+
+        if opc == 1:
+            sheet_nu_extrato_credito()
+            break
+
+        elif opc == 2:
+            sheet_nu_extrato_conta()
+            break
+
+        else:
+            print(
+                "Opção inválida digite o número correto de sua opção: \n1 - CREDITO\n2- - CONTA"
+            )
 
 
 if __name__ == "__main__":
