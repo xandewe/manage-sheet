@@ -11,8 +11,7 @@ def update_all_pages():
             print(f"MÊS {index} FINALIZADO!!!\n")
 
             # Necessário para evitar status code 429
-            if index == 6:
-                sleep(17)
+            sleep(60)
 
         except WorksheetNotFound as _:
             print(f"WorkSheet do mês {index} não encontrada!")
