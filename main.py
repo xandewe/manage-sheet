@@ -13,8 +13,8 @@ def sheet_nu_extrato_credito():
             input("Digite o numero do mês que deseja processar os dados (CREDITO): ")
         )
 
-        spreads.calculate_expense_credit(month)
-        spreads.calculate_payment(month)
+        spreads.calculate_expense_credit(12+month)
+        spreads.calculate_payment(12+month)
 
 
 def sheet_nu_extrato_conta():
