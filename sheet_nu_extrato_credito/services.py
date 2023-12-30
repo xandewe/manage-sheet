@@ -3,12 +3,15 @@ def update_all_pages():
     from . import spreads
     from time import sleep
 
-    for index in range(1, 13):
+    month = 1
+
+    for index in range(13, 25):
         try:
-            print(f"CALCULANDO MÊS {index}")
+            print(f"CALCULANDO MÊS {month}")
             spreads.calculate_expense_credit(index)
             spreads.calculate_payment(index)
-            print(f"MÊS {index} FINALIZADO!!!\n")
+            print(f"MÊS {month} FINALIZADO!!!\n")
+            month += 1
 
             # Necessário para evitar status code 429
             sleep(60)
