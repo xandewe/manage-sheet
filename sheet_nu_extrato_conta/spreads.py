@@ -66,7 +66,7 @@ def calculate_income(page=1):
     values_list = ws.get_values()
 
     if not values_list:
-        print(f"Dados não encontrados!")
+        print(f"Dados não encontrados! (Verifique também se a sua variável de ambiente está correta em relação a planilha a ser manipulada)")
         return None
 
     fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))

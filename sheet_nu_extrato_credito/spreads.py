@@ -13,7 +13,7 @@ def calculate_expense_credit(page=1):
     values_list = ws.get_values()
 
     if not values_list:
-        print(f"Dados não encontrados!")
+        print(f"Dados não encontrados! (Verifique também se a sua variável de ambiente está correta em relação a planilha a ser manipulada)")
         return None
 
     fmt = cell_format(backgroundColor=color(206 / 255, 76 / 255, 61 / 255))
