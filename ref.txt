@@ -1,3 +1,0 @@
-https://www.linkedin.com/pulse/manipulando-planilhas-do-google-usando-python-renan-pessoa/?originalSubdomain=pt
-https://docs.gspread.org/en/latest/
-https://github.com/robin900/gspread-formatting/
