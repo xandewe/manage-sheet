@@ -9,5 +9,11 @@ A aplicação em Python proposta visa simplificar o gerenciamento financeiro ao 
 - Copie o `client_email` do arquivo *credentials.json* e compartilhe o sheets com esse email como editor;
 - Copie o ID da planilha que deseja manipular e cole em seu **.env** (DICA: para pegar o ID da planilha abra ela e copie tudo que está entre as "/" após `docs.google.com/spreadsheets/d/`)
 
+## Tecnologias utilizadas
+- Python
+- Gspread
+- Gspread-formatting
+- GCP
+
 ## Possíveis erros mapeados
 - Caso dê o erro de dado não encontrado a variável de ambiente **(SHEET_NU_EXTRATO)** pode estar incorreta.
