@@ -14,6 +14,7 @@ A aplicação em Python proposta visa simplificar o gerenciamento financeiro ao 
 - Gspread
 - Gspread-formatting
 - GCP
+- Google-auth
 
 ## Possíveis erros mapeados
 - Caso dê o erro de dado não encontrado a variável de ambiente **(SHEET_NU_EXTRATO)** pode estar incorreta.
