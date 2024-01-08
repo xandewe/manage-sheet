@@ -13,8 +13,8 @@ def sheet_nu_extrato_credito():
             input("Digite o numero do mês que deseja processar os dados (CREDITO): ")
         )
 
-        spreads.calculate_expense_credit(12+month)
-        spreads.calculate_payment(12+month)
+        spreads.calculate_expense_credit(12 + month)
+        spreads.calculate_payment(12 + month)
 
 
 def sheet_nu_extrato_conta():
@@ -37,8 +37,18 @@ def sheet_nu_extrato_conta():
 
 
 def main():
+    from utils import create_template
+    from dotenv import load_dotenv
+    import os
+
+    load_dotenv()
+
+    key = os.getenv("SHEET_NU_EXTRATO")
+
     while True:
-        print("Deseja fazer operação em qual opção: \n1 - CREDITO\n2 - CONTA\n")
+        print(
+            "Deseja fazer operação em qual opção: \n1 - CREDITO\n2 - CONTA\n3 - TEMPLATE WORKSHEETS\n"
+        )
         opc = int(input("Insira o valor: "))
 
         if opc == 1:
@@ -47,6 +57,10 @@ def main():
 
         elif opc == 2:
             sheet_nu_extrato_conta()
+            break
+
+        elif opc == 3:
+            create_template(key)
             break
 
         else:
