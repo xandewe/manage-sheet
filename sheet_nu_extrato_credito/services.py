@@ -1,8 +1,8 @@
-def update_all_pages():
-    from gspread import WorksheetNotFound
-    from . import spreads
-    from time import sleep
+from gspread import WorksheetNotFound
+from . import spreads
+from time import sleep
 
+def update_all_pages():
     month = 1
 
     for index in range(13, 25):

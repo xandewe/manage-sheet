@@ -1,8 +1,8 @@
-def update_all_pages():
-    from gspread import WorksheetNotFound
-    from . import spreads
-    from time import sleep
+from gspread import WorksheetNotFound
+from . import spreads
+from time import sleep
 
+def update_all_pages():
     for index in range(1, 13):
         try:
             print(f"CALCULANDO MÊS {index}")
