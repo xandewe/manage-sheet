@@ -3,3 +3,5 @@ venv
 __pycache__
 *.json
 ref.txt
+package_csv/*
+!__init__.py
