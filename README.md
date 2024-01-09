@@ -9,6 +9,11 @@ A aplicação em Python proposta visa simplificar o gerenciamento financeiro ao 
 - Copie o `client_email` do arquivo *credentials.json* e compartilhe o sheets com esse email como editor;
 - Copie o ID da planilha que deseja manipular e cole em seu **.env** (DICA: para pegar o ID da planilha abra ela e copie tudo que está entre as "/" após `docs.google.com/spreadsheets/d/`)
 
+## Configurações variáveis de ambiente
+- **SHEET_NU_EXTRATO** = Esta variável é responsável por armazenar o ID da planilha que será manipulada. Certifique-se de fornecer o ID correto para garantir a integração adequada com a planilha desejada.
+- **GOOGLE_APPLICATION_CREDENTIALS** = Esta variável armazena o caminho do arquivo de credenciais em formato JSON. Siga cuidadosamente os passos da documentação, e você não precisará ajustar diretamente esta variável.
+- **URL** = A variável URL armazena o endereço da API utilizada para o armazenamento dos dados. Certifique-se de inserir a URL correta para garantir a comunicação eficaz entre o aplicativo e o serviço de armazenamento de dados. (em desenvolvimento).
+
 ## Tecnologias utilizadas
 - Python
 - Gspread
