@@ -16,5 +16,12 @@ A aplicação em Python proposta visa simplificar o gerenciamento financeiro ao 
 - GCP
 - Google-auth
 
+## Funcionalidades
+- Criar páginas padronizadas no Google Sheets, destinadas a armazenar dados em formato CSV referentes aos diferentes meses associados às informações da conta e aos dados de crédito
+- Processamento dos dados inseridos em uma página referente ao mês indicado pelo usuário, com o objetivo de identificar e categorizar transações financeiras como entradas ou saídas. Os valores associados a essas transações são calculados e classificados em diferentes categorias divididos entre o tipo conta e o tipo crédito:
+  - **Tipo conta**: As categorias são Entrada, Estorno/Reembolso, Resgate de Investimento, Saída, Pagamento de Fatura e Investimento. Para aprimorar a experiência do usuário e a organização dos dados, dois espaços adicionais são disponibilizados: Apelido e Tag. O campo "Apelido" permite que o usuário atribua um nome mais intuitivo ou identificador personalizado a cada transação, facilitando a referência e compreensão das operações. Já o campo "Tag" oferece a possibilidade de adicionar rótulos ou etiquetas específicas a cada transação, proporcionando uma forma adicional de categorização e organização personalizada.
+  - **Tipo crédito**: As categorias são Total gasto e Pagamento, além dos campos adicionais "Apelido" e "Tag" referidos no item acima.
+- Processamento automatizado de dados financeiros, eliminando a necessidade de inserção manual mês a mês. A automação abrange tanto o **tipo de conta** quanto o **tipo de crédito**, garantindo que todas as transações sejam processadas e categorizadas adequadamente.
+
 ## Possíveis erros mapeados
 - Caso dê o erro de dado não encontrado a variável de ambiente **(SHEET_NU_EXTRATO)** pode estar incorreta.
