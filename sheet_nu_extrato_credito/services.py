@@ -40,18 +40,16 @@ def populate_database_with_credit(file_csv: str):
             for line in reader:
                 if reader.line_num > 1:
                     if line[1] != "payment":
-                        fields = ["description", "name", "value"]
-                        date_purchase = line.pop(0)
+                        fields = ["created_at", "description", "name", "value"]
 
                         data = dict(zip(fields, line))
+
                         data["value"] = Decimal(data["value"])
-                        data.update(
-                            {"description": f'{date_purchase} {data["description"]}'}
-                        )
                         data.update({"type": "Credit Card"})
                         data.update({"status": "Done"})
+
                         _, year, month = file_csv.split("-")
-                        data.update({"created_at": f"{year}-{month}-01"})
+                        data.update({"year_month_reference": f"{year}-{month}"})
 
                         response = requests.post(url, data, verify=False)
 
