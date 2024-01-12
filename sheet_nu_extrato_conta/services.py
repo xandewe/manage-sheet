@@ -48,7 +48,9 @@ def populate_database_with_account(file_csv: str):
                     else:
                         data.update({"type": "Income"})
 
-                    data.update({"status": "Done"})
+                    year_month_reference = data["created_at"][:-3]
+
+                    data.update({"status": "Done", "year_month_reference": year_month_reference})
 
                     response = requests.post(url, data)
 
