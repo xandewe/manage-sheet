@@ -5,7 +5,7 @@ def sheet_nu_extrato_credito():
     option = "\n1 - PROCESSAMENTO AUTOMATICO DE TODOS OS MESES\n2 - PROCESSAMENTO POR MES\n3 - POPULAR DB\n0 - SAIR\n"
 
     while True:
-        print(f"\nDeseja qual operação: {option}")
+        print(f"\nDeseja qual operação (CREDITO): {option}")
         opc = int(input("Insira o valor: "))
 
         if opc == 0:
@@ -59,7 +59,7 @@ def sheet_nu_extrato_conta():
     option = "\n1 - PROCESSAMENTO AUTOMATICO DE TODOS OS MESES\n2 - PROCESSAMENTO POR MES\n3 - POPULAR DB\n0 - SAIR\n"
 
     while True:
-        print(f"\nDeseja qual operação: {option}")
+        print(f"\nDeseja qual operação (CONTA): {option}")
         opc = int(input("Insira o valor: "))
 
         if opc == 0:
@@ -105,7 +105,7 @@ def sheet_nu_extrato_conta():
                 chosen_month = month_list[int(month) - 1]
                 if year in file and chosen_month in file:
                     file_csv = file
-                    print(f"ACHOU {file}")
+                    print(f"\nARQUIVO ENCONTRADO {file}\n")
                     break
 
             if file_csv:
@@ -120,7 +120,7 @@ def sheet_nu_extrato_conta():
 
 def main():
     from utils import create_template
-    
+
     option = "\n1 - CREDITO\n2 - CONTA\n3 - TEMPLATE PAGES SHEET\n0 - SAIR\n"
 
     while True:
