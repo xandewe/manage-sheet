@@ -13,12 +13,16 @@ def calculate_expense_credit(page=1):
     values_list = ws.get_values()
 
     if not values_list:
-        print(f"Dados não encontrados! (Verifique também se a sua variável de ambiente está correta em relação a planilha a ser manipulada)")
+        print(
+            f"Dados não encontrados! (Verifique também se a sua variável de ambiente está correta em relação a planilha a ser manipulada)"
+        )
         return None
 
     fmt = cell_format(backgroundColor=color(206 / 255, 76 / 255, 61 / 255))
 
-    ws.update_cell(1, 5, "Total gasto")
+    ws.update_cell(1, 5, "Sub Tag")
+    ws.update_cell(1, 6, "Tag")
+    ws.update_cell(1, 7, "Total gasto")
 
     expense_credit = 0
     line = 2
@@ -33,7 +37,7 @@ def calculate_expense_credit(page=1):
 
         line += 1
 
-    ws.update_cell(2, 5, expense_credit)
+    ws.update_cell(2, 7, expense_credit)
 
 
 def calculate_payment(page=1):
@@ -47,7 +51,7 @@ def calculate_payment(page=1):
 
     fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
 
-    ws.update_cell(1, 6, "Pagamento")
+    ws.update_cell(1, 8, "Pagamento")
 
     payment = 0
     line = 2
@@ -62,4 +66,4 @@ def calculate_payment(page=1):
 
         line += 1
 
-    ws.update_cell(2, 6, payment)
+    ws.update_cell(2, 8, payment)
