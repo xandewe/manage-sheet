@@ -71,7 +71,7 @@ def calculate_income(page=1):
 
     fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
 
-    ws.update_cell(1, 5, "Apelido")
+    ws.update_cell(1, 5, "Sub Tag")
     ws.update_cell(1, 6, "Tag")
     ws.update_cell(1, 7, "Entrada")
     ws.update_cell(1, 8, "Estorno/Reembolso")
