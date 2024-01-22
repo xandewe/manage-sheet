@@ -17,7 +17,7 @@ def sheet_nu_extrato_credito():
         elif opc == 2:
             month = int(
                 input(
-                    "Digite o numero do mês que deseja processar os dados (CREDITO): "
+                    "\nDigite o numero do mês que deseja processar os dados (CREDITO): "
                 )
             )
 
@@ -27,7 +27,7 @@ def sheet_nu_extrato_credito():
         elif opc == 3:
             path = "./package_csv"
 
-            print("Verifique se o arquivo CSV está presente em package.csv")
+            print("\nVerifique se o arquivo CSV está presente em package.csv")
             month = input("Insira o mês desejado (ex: 01): ").strip()
             year = input("Insira o ano desejado (ex: 2023): ").strip()
 
@@ -46,10 +46,10 @@ def sheet_nu_extrato_credito():
                 services.populate_database_with_credit(file_csv)
 
             else:
-                print("Arquivo não encontrado no diretório")
+                print("\nArquivo não encontrado no diretório")
 
         else:
-            print(f"Opção inválida digite o número correto de sua opção: {option}")
+            print(f"\nOpção inválida digite o número correto de sua opção: {option}")
 
 
 def sheet_nu_extrato_conta():
@@ -70,7 +70,9 @@ def sheet_nu_extrato_conta():
 
         elif opc == 2:
             month = int(
-                input("Digite o numero do mês que deseja processar os dados (CONTA): ")
+                input(
+                    "\nDigite o numero do mês que deseja processar os dados (CONTA): "
+                )
             )
 
             spreads.calculate_income(month)
@@ -79,7 +81,7 @@ def sheet_nu_extrato_conta():
         elif opc == 3:
             path = "./package_csv"
 
-            print("Verifique se o arquivo CSV está presente em package.csv")
+            print("\nVerifique se o arquivo CSV está presente em package.csv")
             month = input("Insira o mês desejado (ex: 01): ").strip()
             year = input("Insira o ano desejado (ex: 2023): ").strip()
             month_list = [
@@ -112,10 +114,10 @@ def sheet_nu_extrato_conta():
                 services.populate_database_with_account(file_csv)
 
             else:
-                print("Arquivo não encontrado no diretório")
+                print("\nArquivo não encontrado no diretório")
 
         else:
-            print(f"Opção inválida digite o número correto de sua opção: {option}")
+            print(f"\nOpção inválida digite o número correto de sua opção: {option}")
 
 
 def main():
@@ -125,11 +127,10 @@ def main():
     sheet_id = input("Qual o ID do Sheet será manipulado: ").strip()
     os.environ["SHEET_NU_EXTRATO"] = sheet_id
 
-
     option = "\n1 - CREDITO\n2 - CONTA\n3 - TEMPLATE PAGES SHEET\n0 - SAIR\n"
 
     while True:
-        print(f"Deseja fazer operação em qual opção: {option}")
+        print(f"\nDeseja fazer operação em qual opção: {option}")
         opc = int(input("Insira o valor: "))
 
         if opc == 0:
@@ -142,11 +143,11 @@ def main():
             sheet_nu_extrato_conta()
 
         elif opc == 3:
-            key = input(f"Qual a key de sua planilha: ").strip()
+            key = os.getenv("SHEET_NU_EXTRATO")
             create_template(key)
 
         else:
-            print(f"Opção inválida digite o número correto de sua opção: {option}")
+            print(f"\nOpção inválida digite o número correto de sua opção: {option}")
 
 
 if __name__ == "__main__":
