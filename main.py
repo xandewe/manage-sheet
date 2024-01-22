@@ -120,6 +120,11 @@ def sheet_nu_extrato_conta():
 
 def main():
     from utils import create_template
+    import os
+
+    sheet_id = input("Qual o ID do Sheet será manipulado: ").strip()
+    os.environ["SHEET_NU_EXTRATO"] = sheet_id
+
 
     option = "\n1 - CREDITO\n2 - CONTA\n3 - TEMPLATE PAGES SHEET\n0 - SAIR\n"
 
