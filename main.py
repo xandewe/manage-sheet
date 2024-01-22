@@ -21,6 +21,8 @@ def sheet_nu_extrato_credito():
                 )
             )
 
+            print("PROCESSANDO DADOS NO SHEET...")
+
             spreads.calculate_expense_credit(12 + month)
             spreads.calculate_payment(12 + month)
 
@@ -74,6 +76,8 @@ def sheet_nu_extrato_conta():
                     "\nDigite o numero do mês que deseja processar os dados (CONTA): "
                 )
             )
+
+            print("PROCESSANDO DADOS NO SHEET...")
 
             spreads.calculate_income(month)
             spreads.calculate_expense(month)
