@@ -7,6 +7,7 @@ from gspread_formatting import (
     format_cell_range,
 )
 from decimal import Decimal, localcontext
+from gspread.exceptions import SpreadsheetNotFound
 
 
 def convert_values_sheet(ws: Worksheet):
@@ -19,7 +20,12 @@ def convert_values_sheet(ws: Worksheet):
 
 
 def calculate_expense(page=1):
-    ws = worksheet(key, page)
+    try:
+        ws = worksheet(key, page)
+
+    except SpreadsheetNotFound as _:
+        print(f"\nSheet não encontrado! Verifique sea key está correta <f{key}>\n")
+        return None
 
     values_list = ws.get_values()
 
@@ -68,7 +74,12 @@ def calculate_expense(page=1):
 
 
 def calculate_income(page=1):
-    ws = worksheet(key, page)
+    try:
+        ws = worksheet(key, page)
+
+    except SpreadsheetNotFound as _:
+        print(f"\nSheet não encontrado! Verifique sea key está correta <f{key}>\n")
+        return None
 
     values_list = ws.get_values()
 
