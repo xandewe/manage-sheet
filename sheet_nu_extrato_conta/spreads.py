@@ -6,6 +6,7 @@ from gspread_formatting import (
     Color as color,
     format_cell_range,
 )
+from decimal import Decimal, localcontext
 
 
 def convert_values_sheet(ws: Worksheet):
@@ -39,7 +40,7 @@ def calculate_expense(page=1):
 
     for item in values_list[1:]:
         date, value, id, description, *_ = item
-        convert_number = float(value)
+        convert_number = Decimal(value)
 
         if "aplicação rdb" in description.lower():
             invested += convert_number
@@ -55,9 +56,15 @@ def calculate_expense(page=1):
 
         line += 1
 
-    ws.update_cell(2, 10, expense)
-    ws.update_cell(2, 11, invoice_card)
-    ws.update_cell(2, 12, invested)
+    with localcontext() as ctx:
+        ctx.prec = 10
+        expense_convert = float(expense)
+        invoice_card_convert = float(invoice_card)
+        invested_convert = float(invested)
+
+    ws.update_cell(2, 10, expense_convert)
+    ws.update_cell(2, 11, invoice_card_convert)
+    ws.update_cell(2, 12, invested_convert)
 
 
 def calculate_income(page=1):
@@ -66,7 +73,9 @@ def calculate_income(page=1):
     values_list = ws.get_values()
 
     if not values_list:
-        print(f"Dados não encontrados! (Verifique também se a sua variável de ambiente está correta em relação a planilha a ser manipulada)")
+        print(
+            f"Dados não encontrados! (Verifique também se a sua variável de ambiente está correta em relação a planilha a ser manipulada)"
+        )
         return None
 
     fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
@@ -84,7 +93,7 @@ def calculate_income(page=1):
 
     for item in values_list[1:]:
         date, value, id, description, *_ = item
-        convert_number = float(value)
+        convert_number = Decimal(value)
 
         if (
             "estorno" in description.lower()
@@ -103,6 +112,12 @@ def calculate_income(page=1):
 
         line += 1
 
-    ws.update_cell(2, 7, income)
-    ws.update_cell(2, 8, return_money)
-    ws.update_cell(2, 9, rescue)
+    with localcontext() as ctx:
+        ctx.prec = 10
+        income_convert = float(income)
+        return_money_convert = float(return_money)
+        rescue_convert = float(rescue)
+
+    ws.update_cell(2, 7, income_convert)
+    ws.update_cell(2, 8, return_money_convert)
+    ws.update_cell(2, 9, rescue_convert)

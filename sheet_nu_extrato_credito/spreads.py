@@ -5,6 +5,7 @@ from gspread_formatting import (
     Color as color,
     format_cell_range,
 )
+from decimal import Decimal, localcontext
 
 
 def calculate_expense_credit(page=1):
@@ -29,7 +30,7 @@ def calculate_expense_credit(page=1):
 
     for item in values_list[1:]:
         date, category, title, value, *_ = item
-        convert_number = float(value)
+        convert_number = Decimal(value)
 
         if convert_number > 0:
             expense_credit += convert_number
@@ -37,7 +38,11 @@ def calculate_expense_credit(page=1):
 
         line += 1
 
-    ws.update_cell(2, 7, expense_credit)
+    with localcontext() as ctx:
+        ctx.prec = 10
+        expense_credit_convert = float(expense_credit)
+
+    ws.update_cell(2, 7, expense_credit_convert)
 
 
 def calculate_payment(page=1):
@@ -58,7 +63,7 @@ def calculate_payment(page=1):
 
     for item in values_list[1:]:
         date, category, title, value, *_ = item
-        convert_number = float(value)
+        convert_number = Decimal(value)
 
         if convert_number < 0:
             payment += convert_number
@@ -66,4 +71,8 @@ def calculate_payment(page=1):
 
         line += 1
 
-    ws.update_cell(2, 8, payment)
+    with localcontext() as ctx:
+        ctx.prec = 10
+        payment_convert = float(payment)
+
+    ws.update_cell(2, 8, payment_convert)
