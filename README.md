@@ -28,6 +28,7 @@ A aplicação em Python proposta visa simplificar o gerenciamento financeiro ao 
   - **Tipo crédito**: As categorias são `Total gasto` e `Pagamento`, além dos campos adicionais `Sub tag` e `Tag` referidos no item acima.
 - Processamento automatizado de dados financeiros, eliminando a necessidade de inserção manual mês a mês. A automação abrange tanto o **tipo de conta** quanto o **tipo de crédito**, garantindo que todas as transações sejam processadas e categorizadas adequadamente.
 - Popular o banco de dados com o arquivo CSV do Nubank, para realizar a operação é necessário extrair os arquivos CSV do Nubank referentes ao cartão de crédito e à conta corrente. Esses arquivos devem ser depositados no diretório denominado package.csv. É crucial observar que o nome do arquivo CSV não deve ser modificado. Ao escolher esta opção, será solicitado que você informe o mês e o ano desejados para o qual o arquivo CSV correspondente esteja localizado no diretório mencionado. Posteriormente, o programa efetuará uma requisição automatizada para importar os dados contidos no arquivo CSV para o banco de dados, preenchendo assim as informações correspondentes ao período selecionado.
+- Processar CSV e a partir dos dados obtidos, construir um novo csv com dados tratados para importar no sheets (Em construção).
 
 ## Possíveis erros mapeados
 - Caso dê o erro de dado não encontrado a variável de ambiente **(SHEET_NU_EXTRATO)** pode estar incorreta.
