@@ -68,15 +68,21 @@ def calculate_payment(page=1):
     fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
 
     ws.update_cell(1, 8, "Pagamento")
+    ws.update_cell(1, 9, "Desconto Ant.")
 
     payment = 0
+    discount = 0
     line = 2
 
     for item in values_list[1:]:
         date, category, title, value, *_ = item
         convert_number = Decimal(value)
 
-        if convert_number < 0:
+        if "discount" in category and convert_number < 0:
+            discount += convert_number
+            format_cell_range(ws, f"A{line}:D{line}", fmt)
+
+        elif convert_number < 0:
             payment += convert_number
             format_cell_range(ws, f"A{line}:D{line}", fmt)
 
@@ -85,5 +91,7 @@ def calculate_payment(page=1):
     with localcontext() as ctx:
         ctx.prec = 10
         payment_convert = float(payment)
+        discount_convert = float(discount)
 
     ws.update_cell(2, 8, payment_convert)
+    ws.update_cell(2, 9, discount_convert)
