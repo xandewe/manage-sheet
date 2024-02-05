@@ -6,6 +6,7 @@ import os
 from decimal import Decimal
 import requests
 from . import url
+import pandas as pd
 
 
 def update_all_pages():
@@ -50,7 +51,9 @@ def populate_database_with_account(file_csv: str):
 
                     year_month_reference = data["created_at"][:-3]
 
-                    data.update({"status": "Done", "year_month_reference": year_month_reference})
+                    data.update(
+                        {"status": "Done", "year_month_reference": year_month_reference}
+                    )
 
                     response = requests.post(url, data)
 
@@ -62,3 +65,12 @@ def populate_database_with_account(file_csv: str):
 
     else:
         print(f"Arquivo não encontrado no diretório | {file_path}")
+
+
+def read_csv(file: str) -> pd.DataFrame:
+    try:
+        data_frame = pd.read_csv(file)
+    except FileNotFoundError as _:
+        raise FileNotFoundError(f"Arquivo {file} não encontrado")
+
+    return data_frame
