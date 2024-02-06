@@ -120,8 +120,27 @@ def processing_income(dt: pd.DataFrame, rows: int):
     dt.insert(6, "Entrada", income)
 
 
+def processing_return_money(dt: pd.DataFrame, rows: int):
+    value_list = dt["Valor"]
+    return_money = ["" for _ in range(rows)]
+    return_money[0] = 0
+
+    for index, value in enumerate(value_list):
+        convert_number = Decimal(str(value))
+        description = dt.Descrição[index]
+
+        if convert_number > 0 and (
+            "estorno" in description.lower()
+            or "reembolso recebido" in description.lower()
+        ):
+            return_money[0] += convert_number
+
+    dt.insert(7, "Estorno/Reembolso", return_money)
+
+
 def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     rows = dt.count().Data
 
     processing_tag_and_subtags(dt, rows)
     processing_income(dt, rows)
+    processing_return_money(dt, rows)
