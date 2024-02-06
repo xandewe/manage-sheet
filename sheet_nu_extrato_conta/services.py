@@ -1,5 +1,5 @@
 from gspread import WorksheetNotFound
-from . import spreads
+from . import spreads, ALIMENTACAO, CASA, TRANSPORTE
 from time import sleep
 import csv
 import os
@@ -74,3 +74,32 @@ def read_csv(file: str) -> pd.DataFrame:
         raise FileNotFoundError(f"Arquivo {file} não encontrado")
 
     return data_frame
+
+
+def processing_tag_and_subtags(dt: pd.DataFrame):
+    description_list = dt["Descrição"]
+    sub_tags = ["" for _ in range(19)]
+    tags = ["" for _ in range(19)]
+
+    for index, description in enumerate(description_list):
+        for item in ALIMENTACAO:
+            if item in description.upper():
+                tags[index] = "Alimentação"
+                sub_tags[index] = item.title()
+
+        for item in TRANSPORTE:
+            if item in description.upper():
+                tags[index] = "Transporte"
+                sub_tags[index] = item.title()
+
+        for item in CASA:
+            if item in description.upper():
+                tags[index] = "Casa"
+                sub_tags[index] = item.title()
+
+    dt.insert(4, "Sub Tag", sub_tags)
+    dt.insert(5, "Tag", tags)
+
+
+def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
+    processing_tag_and_subtags(dt)
