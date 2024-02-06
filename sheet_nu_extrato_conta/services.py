@@ -1,5 +1,5 @@
 from gspread import WorksheetNotFound
-from . import spreads, ALIMENTACAO, CASA, TRANSPORTE
+from . import spreads, ALIMENTACAO, CASA, TRANSPORTE, csv_path
 from time import sleep
 import csv
 import os
@@ -213,3 +213,13 @@ def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     processing_invested(dt, rows)
 
     return dt
+
+
+def generate_csv(dt: pd.DataFrame, file_name: str):
+    format_name = file_name.split("_")
+    format_name[1] = "PROCCESSED"
+    file_name = "_".join(format_name)
+
+    path = f"{csv_path}{file_name}"
+
+    dt.to_csv(path)
