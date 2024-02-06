@@ -101,7 +101,27 @@ def processing_tag_and_subtags(dt: pd.DataFrame, rows: int):
     dt.insert(5, "Tag", tags)
 
 
+def processing_income(dt: pd.DataFrame, rows: int):
+    value_list = dt["Valor"]
+    income = ["" for _ in range(rows)]
+    income[0] = 0
+
+    for index, value in enumerate(value_list):
+        convert_number = Decimal(str(value))
+        description = dt.Descrição[index]
+
+        if convert_number > 0 and (
+            "estorno" not in description.lower()
+            and "reembolso recebido" not in description.lower()
+            and "resgate" not in description.lower()
+        ):
+            income[0] += convert_number
+
+    dt.insert(6, "Entrada", income)
+
+
 def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     rows = dt.count().Data
 
     processing_tag_and_subtags(dt, rows)
+    processing_income(dt, rows)
