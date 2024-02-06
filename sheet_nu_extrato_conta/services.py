@@ -76,10 +76,10 @@ def read_csv(file: str) -> pd.DataFrame:
     return data_frame
 
 
-def processing_tag_and_subtags(dt: pd.DataFrame):
+def processing_tag_and_subtags(dt: pd.DataFrame, rows: int):
     description_list = dt["Descrição"]
-    sub_tags = ["" for _ in range(19)]
-    tags = ["" for _ in range(19)]
+    sub_tags = ["" for _ in range(rows)]
+    tags = ["" for _ in range(rows)]
 
     for index, description in enumerate(description_list):
         for item in ALIMENTACAO:
@@ -102,4 +102,6 @@ def processing_tag_and_subtags(dt: pd.DataFrame):
 
 
 def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
-    processing_tag_and_subtags(dt)
+    rows = dt.count().Data
+
+    processing_tag_and_subtags(dt, rows)
