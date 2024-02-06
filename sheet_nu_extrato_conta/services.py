@@ -211,3 +211,5 @@ def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     processing_expense(dt, rows)
     processing_invoice_card(dt, rows)
     processing_invested(dt, rows)
+
+    return dt
