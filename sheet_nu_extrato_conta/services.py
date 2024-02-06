@@ -76,7 +76,7 @@ def read_csv(file: str) -> pd.DataFrame:
     return data_frame
 
 
-def processing_tag_and_subtags(dt: pd.DataFrame, rows: int):
+def processing_tag_and_subtags(dt: pd.DataFrame, rows: int) -> None:
     description_list = dt["Descrição"]
     sub_tags = ["" for _ in range(rows)]
     tags = ["" for _ in range(rows)]
@@ -101,7 +101,7 @@ def processing_tag_and_subtags(dt: pd.DataFrame, rows: int):
     dt.insert(5, "Tag", tags)
 
 
-def processing_income(dt: pd.DataFrame, rows: int):
+def processing_income(dt: pd.DataFrame, rows: int) -> None:
     value_list = dt["Valor"]
     income = ["" for _ in range(rows)]
     income[0] = 0
@@ -120,7 +120,7 @@ def processing_income(dt: pd.DataFrame, rows: int):
     dt.insert(6, "Entrada", income)
 
 
-def processing_return_money(dt: pd.DataFrame, rows: int):
+def processing_return_money(dt: pd.DataFrame, rows: int) -> None:
     value_list = dt["Valor"]
     return_money = ["" for _ in range(rows)]
     return_money[0] = 0
@@ -138,7 +138,7 @@ def processing_return_money(dt: pd.DataFrame, rows: int):
     dt.insert(7, "Estorno/Reembolso", return_money)
 
 
-def processing_rescue(dt: pd.DataFrame, rows: int):
+def processing_rescue(dt: pd.DataFrame, rows: int) -> None:
     value_list = dt["Valor"]
     rescue = ["" for _ in range(rows)]
     rescue[0] = 0
@@ -153,7 +153,7 @@ def processing_rescue(dt: pd.DataFrame, rows: int):
     dt.insert(8, "Resgate Invest.", rescue)
 
 
-def processing_expense(dt: pd.DataFrame, rows: int):
+def processing_expense(dt: pd.DataFrame, rows: int) -> None:
     value_list = dt["Valor"]
     expense = ["" for _ in range(rows)]
     expense[0] = 0
@@ -171,7 +171,7 @@ def processing_expense(dt: pd.DataFrame, rows: int):
     dt.insert(9, "Saída", expense)
 
 
-def processing_invoice_card(dt: pd.DataFrame, rows: int):
+def processing_invoice_card(dt: pd.DataFrame, rows: int) -> None:
     value_list = dt["Valor"]
     invoice_card = ["" for _ in range(rows)]
     invoice_card[0] = 0
@@ -186,7 +186,7 @@ def processing_invoice_card(dt: pd.DataFrame, rows: int):
     dt.insert(10, "Pagamento fatura cred.", invoice_card)
 
 
-def processing_invested(dt: pd.DataFrame, rows: int):
+def processing_invested(dt: pd.DataFrame, rows: int) -> None:
     value_list = dt["Valor"]
     invested = ["" for _ in range(rows)]
     invested[0] = 0
