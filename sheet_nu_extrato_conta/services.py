@@ -185,6 +185,19 @@ def processing_invoice_card(dt: pd.DataFrame, rows: int):
 
     dt.insert(10, "Pagamento fatura cred.", invoice_card)
 
+def processing_invested(dt: pd.DataFrame, rows: int):
+    value_list = dt["Valor"]
+    invested = ["" for _ in range(rows)]
+    invested[0] = 0
+
+    for index, value in enumerate(value_list):
+        convert_number = Decimal(str(value))
+        description = dt.Descrição[index]
+
+        if convert_number < 0 and "aplicação rdb" in description.lower():
+            invested[0] += convert_number
+    
+    dt.insert(11, "Investido", invested)
 
 def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     rows = dt.count().Data
@@ -195,3 +208,4 @@ def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     processing_rescue(dt, rows)
     processing_expense(dt, rows)
     processing_invoice_card(dt, rows)
+    processing_invested(dt, rows)
