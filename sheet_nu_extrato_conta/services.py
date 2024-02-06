@@ -153,6 +153,24 @@ def processing_rescue(dt: pd.DataFrame, rows: int):
     dt.insert(8, "Resgate Invest.", rescue)
 
 
+def processing_expense(dt: pd.DataFrame, rows: int):
+    value_list = dt["Valor"]
+    expense = ["" for _ in range(rows)]
+    expense[0] = 0
+
+    for index, value in enumerate(value_list):
+        convert_number = Decimal(str(value))
+        description = dt.Descrição[index]
+
+        if convert_number < 0 and (
+            "aplicação rdb" not in description.lower()
+            and "pagamento de fatura" not in description.lower()
+        ):
+            expense[0] += convert_number
+
+    dt.insert(9, "Saída", expense)
+
+
 def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     rows = dt.count().Data
 
@@ -160,3 +178,4 @@ def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     processing_income(dt, rows)
     processing_return_money(dt, rows)
     processing_rescue(dt, rows)
+    processing_expense(dt, rows)
