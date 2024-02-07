@@ -85,7 +85,10 @@ def processing_tag_and_subtags(dt: pd.DataFrame, rows: int) -> None:
         for item in ALIMENTACAO:
             if item in description.upper():
                 tags[index] = "Alimentação"
-                sub_tags[index] = item.title()
+                if item == "IFOOD":
+                    sub_tags[index] = item.title()
+                else:
+                    sub_tags[index] = "Mercado"
 
         for item in TRANSPORTE:
             if item in description.upper():
