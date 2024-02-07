@@ -55,10 +55,14 @@ def sheet_nu_extrato_credito():
 
 
 def sheet_nu_extrato_conta():
-    from sheet_nu_extrato_conta import spreads, services
+    from sheet_nu_extrato_conta import spreads, services, MONTH_LIST, PACKAGE_PATH, csv_path
     import os
+    from datetime import datetime
 
-    option = "\n1 - PROCESSAMENTO AUTOMATICO DE TODOS OS MESES\n2 - PROCESSAMENTO POR MES\n3 - POPULAR DB\n0 - SAIR\n"
+    standard_month = str(datetime.now().month)
+    standard_year = str(datetime.now().year)
+
+    option = "\n1 - PROCESSAMENTO SHEET AUTOMATICO DE TODOS OS MESES\n2 - PROCESSAMENTO SHEET POR MES\n3 - POPULAR DB\n4 - GERAR CSV COM DADOS PROCESSADOS\n0 - VOLTAR\n"
 
     while True:
         print(f"\nDeseja qual operação (CONTA): {option}")
@@ -83,32 +87,26 @@ def sheet_nu_extrato_conta():
             spreads.calculate_expense(month)
 
         elif opc == 3:
-            path = "./package_csv"
-
             print("\nVerifique se o arquivo CSV está presente em package.csv")
-            month = input("Insira o mês desejado (ex: 01): ").strip()
-            year = input("Insira o ano desejado (ex: 2023): ").strip()
-            month_list = [
-                "JAN",
-                "FEV",
-                "MAR",
-                "ABR",
-                "MAI",
-                "JUN",
-                "JUL",
-                "AGO",
-                "SET",
-                "OUT",
-                "NOV",
-                "DEZ",
-            ]
+            month = (
+                input(
+                    f"Insira o mês desejado (ex: 01) pressione enter para {standard_month}: "
+                ).strip()
+                or standard_month
+            )
+            year = (
+                input(
+                    f"Insira o ano desejado (ex: 2023) pressione enter para {standard_year}: "
+                ).strip()
+                or standard_year
+            )
 
-            files = os.listdir(path)
+            files = os.listdir(PACKAGE_PATH)
 
             file_csv = ""
 
             for file in files:
-                chosen_month = month_list[int(month) - 1]
+                chosen_month = MONTH_LIST[int(month) - 1]
                 if year in file and chosen_month in file:
                     file_csv = file
                     print(f"\nARQUIVO ENCONTRADO {file}\n")
@@ -116,6 +114,42 @@ def sheet_nu_extrato_conta():
 
             if file_csv:
                 services.populate_database_with_account(file_csv)
+
+            else:
+                print("\nArquivo não encontrado no diretório")
+
+        elif opc == 4:
+            print("\nVerifique se o arquivo CSV está presente em package.csv")
+            month = (
+                input(
+                    f"Insira o mês desejado (ex: 01) pressione enter para {standard_month}: "
+                ).strip()
+                or standard_month
+            )
+            year = (
+                input(
+                    f"Insira o ano desejado (ex: 2023) pressione enter para {standard_year}: "
+                ).strip()
+                or standard_year
+            )
+
+            files = os.listdir(PACKAGE_PATH)
+
+            file_csv = ""
+
+            for file in files:
+                chosen_month = MONTH_LIST[int(month) - 1]
+                if year in file and chosen_month in file:
+                    file_csv = file
+                    print(f"\nARQUIVO ENCONTRADO {file}\n")
+                    break
+
+            if file_csv:
+                path = f"{PACKAGE_PATH}/{file_csv}"
+                dt = services.read_csv(path)
+                dt_formatted = services.processing_csv_data(dt)
+                services.generate_csv(dt_formatted, file_csv)
+                print(f"\nARQUIVO GERADO EM {csv_path}\n")
 
             else:
                 print("\nArquivo não encontrado no diretório")
