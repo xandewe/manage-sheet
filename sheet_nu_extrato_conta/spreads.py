@@ -1,5 +1,3 @@
-from utils import worksheet
-from . import key
 from gspread.worksheet import Worksheet
 from gspread_formatting import (
     CellFormat as cell_format,
@@ -7,7 +5,6 @@ from gspread_formatting import (
     format_cell_range,
 )
 from decimal import Decimal, localcontext
-from gspread.exceptions import SpreadsheetNotFound
 
 
 def convert_values_sheet(ws: Worksheet):
@@ -19,20 +16,7 @@ def convert_values_sheet(ws: Worksheet):
         ws.update_cell(line, 2, convert_number)
 
 
-def calculate_expense(page=1):
-    try:
-        ws = worksheet(key, page)
-
-    except SpreadsheetNotFound as _:
-        print(f"\nSheet não encontrado! Verifique sea key está correta <f{key}>\n")
-        return None
-
-    values_list = ws.get_values()
-
-    if not values_list:
-        print(f"Dados não encontrados!")
-        return None
-
+def calculate_expense(ws: Worksheet, values_list: list):
     fmt = cell_format(backgroundColor=color(206 / 255, 76 / 255, 61 / 255))
 
     ws.update_cell(1, 10, "Saida")
@@ -44,7 +28,7 @@ def calculate_expense(page=1):
     invested = 0
     line = 2
 
-    for item in values_list[1:]:
+    for item in values_list:
         date, value, id, description, *_ = item
         convert_number = Decimal(value)
 
@@ -73,22 +57,7 @@ def calculate_expense(page=1):
     ws.update_cell(2, 12, invested_convert)
 
 
-def calculate_income(page=1):
-    try:
-        ws = worksheet(key, page)
-
-    except SpreadsheetNotFound as _:
-        print(f"\nSheet não encontrado! Verifique sea key está correta <f{key}>\n")
-        return None
-
-    values_list = ws.get_values()
-
-    if not values_list:
-        print(
-            f"Dados não encontrados! (Verifique também se a sua variável de ambiente está correta em relação a planilha a ser manipulada)"
-        )
-        return None
-
+def calculate_income(ws: Worksheet, values_list: list):
     fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
 
     ws.update_cell(1, 5, "Sub Tag")
@@ -102,7 +71,7 @@ def calculate_income(page=1):
     rescue = 0
     line = 2
 
-    for item in values_list[1:]:
+    for item in values_list:
         date, value, id, description, *_ = item
         convert_number = Decimal(value)
 
