@@ -13,6 +13,7 @@ A aplicação em Python proposta visa simplificar o gerenciamento financeiro ao 
 - **SHEET_NU_EXTRATO** = Esta variável é responsável por armazenar o ID da planilha que será manipulada. Certifique-se de fornecer o ID correto para garantir a integração adequada com a planilha desejada.
 - **GOOGLE_APPLICATION_CREDENTIALS** = Esta variável armazena o caminho do arquivo de credenciais em formato JSON. Siga cuidadosamente os passos da documentação, e você não precisará ajustar diretamente esta variável.
 - **URL** = A variável URL armazena o endereço da API utilizada para o armazenamento dos dados. Certifique-se de inserir a URL correta para garantir a comunicação eficaz entre o aplicativo e o serviço de armazenamento de dados. (em desenvolvimento).
+- **SAVE_CSV_PATH** = Indica o caminho onde será salvo o novo CSV processado para utilização no sheets
 
 ## Tecnologias utilizadas
 - Python
