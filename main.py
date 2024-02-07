@@ -54,15 +54,21 @@ def sheet_nu_extrato_credito():
             print(f"\nOpção inválida digite o número correto de sua opção: {option}")
 
 
-def sheet_nu_extrato_conta():
-    from sheet_nu_extrato_conta import spreads, services, MONTH_LIST, PACKAGE_PATH, csv_path
+def sheet_nu_extrato_conta(key):
+    from sheet_nu_extrato_conta import (
+        spreads,
+        services,
+        MONTH_LIST,
+        PACKAGE_PATH,
+        standard_month,
+        standard_year,
+        csv_path,
+    )
     import os
-    from datetime import datetime
+    from utils import verify_sheet
+    from exceptions import WorksheetException
 
-    standard_month = str(datetime.now().month)
-    standard_year = str(datetime.now().year)
-
-    option = "\n1 - PROCESSAMENTO SHEET AUTOMATICO DE TODOS OS MESES\n2 - PROCESSAMENTO SHEET POR MES\n3 - POPULAR DB\n4 - GERAR CSV COM DADOS PROCESSADOS\n0 - VOLTAR\n"
+    option = "\n1 - PROCESSAMENTO SHEET POR MES\n2 - POPULAR DB\n3 - GERAR CSV PROCESSADO\n0 - VOLTAR\n"
 
     while True:
         print(f"\nDeseja qual operação (CONTA): {option}")
@@ -72,9 +78,6 @@ def sheet_nu_extrato_conta():
             break
 
         elif opc == 1:
-            services.update_all_pages()
-
-        elif opc == 2:
             month = int(
                 input(
                     "\nDigite o numero do mês que deseja processar os dados (CONTA): "
@@ -83,10 +86,14 @@ def sheet_nu_extrato_conta():
 
             print("PROCESSANDO DADOS NO SHEET...")
 
-            spreads.calculate_income(month)
-            spreads.calculate_expense(month)
+            try:
+                ws, values_list = verify_sheet(month, key)
+                spreads.calculate_income(ws, values_list)
+                spreads.calculate_expense(ws, values_list)
+            except WorksheetException as err:
+                print(err)
 
-        elif opc == 3:
+        elif opc == 2:
             print("\nVerifique se o arquivo CSV está presente em package.csv")
             month = (
                 input(
@@ -118,7 +125,7 @@ def sheet_nu_extrato_conta():
             else:
                 print("\nArquivo não encontrado no diretório")
 
-        elif opc == 4:
+        if opc == 3:
             print("\nVerifique se o arquivo CSV está presente em package.csv")
             month = (
                 input(
@@ -162,8 +169,17 @@ def main():
     from utils import create_template
     import os
 
-    sheet_id = input("Qual o ID do Sheet será manipulado: ").strip()
-    os.environ["SHEET_NU_EXTRATO"] = sheet_id
+    standard_key = os.getenv("SHEET_NU_EXTRATO")
+
+    print(f"Key de sheet padrão: {standard_key}")
+
+    key = (
+        input(
+            "Qual o ID do Sheet será manipulado, (pressione enter para sheet padrão): "
+        ).strip()
+        or standard_key
+    )
+    os.environ["SHEET_NU_EXTRATO"] = key
 
     option = "\n1 - CREDITO\n2 - CONTA\n3 - TEMPLATE PAGES SHEET\n0 - SAIR\n"
 
@@ -178,10 +194,9 @@ def main():
             sheet_nu_extrato_credito()
 
         elif opc == 2:
-            sheet_nu_extrato_conta()
+            sheet_nu_extrato_conta(key)
 
         elif opc == 3:
-            key = os.getenv("SHEET_NU_EXTRATO")
             create_template(key)
 
         else:
