@@ -52,4 +52,4 @@ def verify_sheet(page: int, key: str):
     if not values_list:
         raise WorksheetException(f"Dados não encontrados!")
 
-    return values_list[1:]
+    return (ws, values_list[1:])
