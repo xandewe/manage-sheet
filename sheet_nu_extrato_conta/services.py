@@ -225,4 +225,4 @@ def generate_csv(dt: pd.DataFrame, file_name: str):
 
     path = f"{csv_path}{file_name}"
 
-    dt.to_csv(path)
+    dt.to_csv(path, index=False)
