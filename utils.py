@@ -1,5 +1,10 @@
 import gspread
 import google.auth
+from gspread.exceptions import SpreadsheetNotFound
+
+# from sheet_nu_extrato_conta import key
+from exceptions import WorksheetException
+from sheet_nu_extrato_conta import MONTH_LIST
 
 
 def worksheet(key, page=0):
@@ -25,23 +30,8 @@ def create_template(key: str):
 
     wks = gc.open_by_key(key)
 
-    month_list = [
-        "JAN",
-        "FEV",
-        "MAR",
-        "ABR",
-        "MAI",
-        "JUN",
-        "JUL",
-        "AGO",
-        "SET",
-        "OUT",
-        "NOV",
-        "DEZ",
-    ]
-
-    for month in month_list:
+    for month in MONTH_LIST:
         wks.add_worksheet(f"{month}_EXTRATO", 1000, 26)
 
-    for month in month_list:
+    for month in MONTH_LIST:
         wks.add_worksheet(f"{month}_CRED", 1000, 26)
