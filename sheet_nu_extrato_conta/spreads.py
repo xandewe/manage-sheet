@@ -8,15 +8,6 @@ from decimal import Decimal, localcontext
 from . import SHEET_COLUMNS_NAME
 
 
-def convert_values_sheet(ws: Worksheet):
-    values_list = ws.col_values(2)
-    line = 2
-
-    for item in values_list[1:]:
-        convert_number = float(item)
-        ws.update_cell(line, 2, convert_number)
-
-
 def write_sheet_headers(ws: Worksheet, column: int):
     for item in SHEET_COLUMNS_NAME:
         column += 1
