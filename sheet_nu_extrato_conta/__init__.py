@@ -10,23 +10,35 @@ csv_path = os.getenv("SAVE_CSV_PATH")
 standard_month = str(datetime.now().month)
 standard_year = str(datetime.now().year)
 
-CASA = ["COMPANHIA PAULISTA DE FORCA E LUZ", "CLARO", ]
+CASA = [
+    "COMPANHIA PAULISTA DE FORCA E LUZ",
+    "CLARO",
+]
 TRANSPORTE = ["UBER"]
 ALIMENTACAO = ["TAUSTE", "SWIFT", "KAWAKAMI", "IFOOD"]
 
 MONTH_LIST = [
-        "JAN",
-        "FEV",
-        "MAR",
-        "ABR",
-        "MAI",
-        "JUN",
-        "JUL",
-        "AGO",
-        "SET",
-        "OUT",
-        "NOV",
-        "DEZ",
-    ]
-
+    "JAN",
+    "FEV",
+    "MAR",
+    "ABR",
+    "MAI",
+    "JUN",
+    "JUL",
+    "AGO",
+    "SET",
+    "OUT",
+    "NOV",
+    "DEZ",
+]
 PACKAGE_PATH = "./package_csv"
+SHEET_COLUMNS_NAME = (
+    "Sub Tag",
+    "Tag",
+    "Entrada",
+    "Estorno/Reembolso",
+    "Resgate Invest.",
+    "Saida",
+    "Pagamento fatura credito",
+    "Investido",
+)
