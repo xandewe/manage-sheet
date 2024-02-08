@@ -89,7 +89,8 @@ def sheet_nu_extrato_conta(key):
             try:
                 ws, values_list, quantity_columns = verify_sheet(month, key)
                 spreads.write_sheet_headers(ws, quantity_columns)
-                spreads.cash_inflows_and_outflows_analysis(ws, values_list)
+                values_calc = spreads.cash_inflows_and_outflows_analysis(ws, values_list)
+                spreads.write_values_in_sheet(ws, values_calc)
             except WorksheetException as err:
                 print(err)
 
