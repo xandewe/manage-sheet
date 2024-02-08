@@ -87,8 +87,8 @@ def sheet_nu_extrato_conta(key):
             print("PROCESSANDO DADOS NO SHEET...")
 
             try:
-                ws, values_list = verify_sheet(month, key)
-                spreads.write_sheet_headers(ws)
+                ws, values_list, quantity_columns = verify_sheet(month, key)
+                spreads.write_sheet_headers(ws, quantity_columns)
                 spreads.cash_inflows_and_outflows_analysis(ws, values_list)
             except WorksheetException as err:
                 print(err)
