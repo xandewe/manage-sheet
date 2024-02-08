@@ -16,12 +16,20 @@ def convert_values_sheet(ws: Worksheet):
         ws.update_cell(line, 2, convert_number)
 
 
-def calculate_expense(ws: Worksheet, values_list: list):
-    fmt = cell_format(backgroundColor=color(206 / 255, 76 / 255, 61 / 255))
+def write_sheet_headers(ws: Worksheet):
 
+    ws.update_cell(1, 5, "Sub Tag")
+    ws.update_cell(1, 6, "Tag")
+    ws.update_cell(1, 7, "Entrada")
+    ws.update_cell(1, 8, "Estorno/Reembolso")
+    ws.update_cell(1, 9, "Resgate Invest.")
     ws.update_cell(1, 10, "Saida")
     ws.update_cell(1, 11, "Pagamento fatura credito")
     ws.update_cell(1, 12, "Investido")
+
+
+def calculate_expense(ws: Worksheet, values_list: list):
+    fmt = cell_format(backgroundColor=color(206 / 255, 76 / 255, 61 / 255))
 
     expense = 0
     invoice_card = 0
@@ -59,12 +67,6 @@ def calculate_expense(ws: Worksheet, values_list: list):
 
 def calculate_income(ws: Worksheet, values_list: list):
     fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
-
-    ws.update_cell(1, 5, "Sub Tag")
-    ws.update_cell(1, 6, "Tag")
-    ws.update_cell(1, 7, "Entrada")
-    ws.update_cell(1, 8, "Estorno/Reembolso")
-    ws.update_cell(1, 9, "Resgate Invest.")
 
     income = 0
     return_money = 0
