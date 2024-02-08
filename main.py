@@ -88,6 +88,7 @@ def sheet_nu_extrato_conta(key):
 
             try:
                 ws, values_list = verify_sheet(month, key)
+                spreads.write_sheet_headers(ws)
                 spreads.calculate_income(ws, values_list)
                 spreads.calculate_expense(ws, values_list)
             except WorksheetException as err:
