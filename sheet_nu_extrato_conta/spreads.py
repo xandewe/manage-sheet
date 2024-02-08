@@ -5,6 +5,7 @@ from gspread_formatting import (
     format_cell_range,
 )
 from decimal import Decimal, localcontext
+from . import SHEET_COLUMNS_NAME
 
 
 def convert_values_sheet(ws: Worksheet):
@@ -16,16 +17,10 @@ def convert_values_sheet(ws: Worksheet):
         ws.update_cell(line, 2, convert_number)
 
 
-def write_sheet_headers(ws: Worksheet):
-
-    ws.update_cell(1, 5, "Sub Tag")
-    ws.update_cell(1, 6, "Tag")
-    ws.update_cell(1, 7, "Entrada")
-    ws.update_cell(1, 8, "Estorno/Reembolso")
-    ws.update_cell(1, 9, "Resgate Invest.")
-    ws.update_cell(1, 10, "Saida")
-    ws.update_cell(1, 11, "Pagamento fatura credito")
-    ws.update_cell(1, 12, "Investido")
+def write_sheet_headers(ws: Worksheet, column: int):
+    for item in SHEET_COLUMNS_NAME:
+        column += 1
+        ws.update_cell(1, column, item)
 
 
 def cash_inflows_and_outflows_analysis(ws: Worksheet, values_list: list):
