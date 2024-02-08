@@ -69,13 +69,6 @@ def cash_inflows_and_outflows_analysis(ws: Worksheet, values_list: list):
         invoice_card_convert = float(invoice_card)
         invested_convert = float(invested)
 
-    ws.update_cell(2, 7, income_convert)
-    ws.update_cell(2, 8, return_money_convert)
-    ws.update_cell(2, 9, rescue_convert)
-    ws.update_cell(2, 10, expense_convert)
-    ws.update_cell(2, 11, invoice_card_convert)
-    ws.update_cell(2, 12, invested_convert)
-
     return (
         income_convert,
         return_money_convert,
@@ -84,3 +77,11 @@ def cash_inflows_and_outflows_analysis(ws: Worksheet, values_list: list):
         invoice_card_convert,
         invested_convert,
     )
+
+
+def write_values_in_sheet(ws: Worksheet, values: tuple):
+    col = ws.find("Tag", in_row=1).col
+
+    for item in values:
+        col += 1
+        ws.update_cell(2, col, item)
