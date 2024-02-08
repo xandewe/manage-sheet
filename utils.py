@@ -41,6 +41,7 @@ def verify_sheet(page: int, key: str):
     """
     try:
         ws = worksheet(key, page)
+        quantity_columns = len(ws.row_values(1))
 
     except SpreadsheetNotFound as _:
         raise WorksheetException(
@@ -52,4 +53,4 @@ def verify_sheet(page: int, key: str):
     if not values_list:
         raise WorksheetException(f"Dados não encontrados!")
 
-    return (ws, values_list[1:])
+    return (ws, values_list[1:], quantity_columns)
