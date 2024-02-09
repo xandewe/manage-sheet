@@ -2,7 +2,7 @@ def sheet_nu_extrato_credito():
     from sheet_nu_extrato_credito import spreads, services
     import os
 
-    option = "\n1 - PROCESSAMENTO AUTOMATICO DE TODOS OS MESES\n2 - PROCESSAMENTO POR MES\n3 - POPULAR DB\n0 - SAIR\n"
+    option = "\n1 - PROCESSAMENTO POR MES\n2 - POPULAR DB\n0 - SAIR\n"
 
     while True:
         print(f"\nDeseja qual operação (CREDITO): {option}")
@@ -12,9 +12,6 @@ def sheet_nu_extrato_credito():
             break
 
         elif opc == 1:
-            services.update_all_pages()
-
-        elif opc == 2:
             month = int(
                 input(
                     "\nDigite o numero do mês que deseja processar os dados (CREDITO): "
@@ -26,7 +23,7 @@ def sheet_nu_extrato_credito():
             spreads.calculate_expense_credit(12 + month)
             spreads.calculate_payment(12 + month)
 
-        elif opc == 3:
+        elif opc == 2:
             path = "./package_csv"
 
             print("\nVerifique se o arquivo CSV está presente em package.csv")
