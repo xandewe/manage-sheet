@@ -3,9 +3,9 @@ from . import spreads, ALIMENTACAO, CASA, TRANSPORTE, csv_path
 from time import sleep
 import csv
 import os
-from decimal import Decimal
+from decimal import Decimal, localcontext
 import requests
-from . import url
+from . import url, SHEET_COLUMNS_NAME
 import pandas as pd
 
 
@@ -100,14 +100,24 @@ def processing_tag_and_subtags(dt: pd.DataFrame, rows: int) -> None:
                 tags[index] = "Casa"
                 sub_tags[index] = item.title()
 
-    dt.insert(4, "Sub Tag", sub_tags)
-    dt.insert(5, "Tag", tags)
+    return (sub_tags, tags)
 
 
-def processing_income(dt: pd.DataFrame, rows: int) -> None:
+def analysis_cash_inflows_and_outflows_dataframe(dt: pd.DataFrame, rows: int):
     value_list = dt["Valor"]
+
     income = ["" for _ in range(rows)]
     income[0] = 0
+    return_money = ["" for _ in range(rows)]
+    return_money[0] = 0
+    rescue = ["" for _ in range(rows)]
+    rescue[0] = 0
+    expense = ["" for _ in range(rows)]
+    expense[0] = 0
+    invoice_card = ["" for _ in range(rows)]
+    invoice_card[0] = 0
+    invested = ["" for _ in range(rows)]
+    invested[0] = 0
 
     for index, value in enumerate(value_list):
         convert_number = Decimal(str(value))
@@ -120,50 +130,14 @@ def processing_income(dt: pd.DataFrame, rows: int) -> None:
         ):
             income[0] += convert_number
 
-    dt.insert(6, "Entrada", income)
-
-
-def processing_return_money(dt: pd.DataFrame, rows: int) -> None:
-    value_list = dt["Valor"]
-    return_money = ["" for _ in range(rows)]
-    return_money[0] = 0
-
-    for index, value in enumerate(value_list):
-        convert_number = Decimal(str(value))
-        description = dt.Descrição[index]
-
         if convert_number > 0 and (
             "estorno" in description.lower()
             or "reembolso recebido" in description.lower()
         ):
             return_money[0] += convert_number
 
-    dt.insert(7, "Estorno/Reembolso", return_money)
-
-
-def processing_rescue(dt: pd.DataFrame, rows: int) -> None:
-    value_list = dt["Valor"]
-    rescue = ["" for _ in range(rows)]
-    rescue[0] = 0
-
-    for index, value in enumerate(value_list):
-        convert_number = Decimal(str(value))
-        description = dt.Descrição[index]
-
         if convert_number > 0 and "resgate" in description.lower():
             rescue[0] += convert_number
-
-    dt.insert(8, "Resgate Invest.", rescue)
-
-
-def processing_expense(dt: pd.DataFrame, rows: int) -> None:
-    value_list = dt["Valor"]
-    expense = ["" for _ in range(rows)]
-    expense[0] = 0
-
-    for index, value in enumerate(value_list):
-        convert_number = Decimal(str(value))
-        description = dt.Descrição[index]
 
         if convert_number < 0 and (
             "aplicação rdb" not in description.lower()
@@ -171,49 +145,51 @@ def processing_expense(dt: pd.DataFrame, rows: int) -> None:
         ):
             expense[0] += convert_number
 
-    dt.insert(9, "Saída", expense)
-
-
-def processing_invoice_card(dt: pd.DataFrame, rows: int) -> None:
-    value_list = dt["Valor"]
-    invoice_card = ["" for _ in range(rows)]
-    invoice_card[0] = 0
-
-    for index, value in enumerate(value_list):
-        convert_number = Decimal(str(value))
-        description = dt.Descrição[index]
-
         if convert_number < 0 and "pagamento de fatura" in description.lower():
             invoice_card[0] += convert_number
-
-    dt.insert(10, "Pagamento fatura cred.", invoice_card)
-
-
-def processing_invested(dt: pd.DataFrame, rows: int) -> None:
-    value_list = dt["Valor"]
-    invested = ["" for _ in range(rows)]
-    invested[0] = 0
-
-    for index, value in enumerate(value_list):
-        convert_number = Decimal(str(value))
-        description = dt.Descrição[index]
 
         if convert_number < 0 and "aplicação rdb" in description.lower():
             invested[0] += convert_number
 
-    dt.insert(11, "Investido", invested)
+    with localcontext() as ctx:
+        ctx.prec = 10
+        income[0] = float(income[0])
+        return_money[0] = float(return_money[0])
+        rescue[0] = float(rescue[0])
+        expense[0] = float(expense[0])
+        invoice_card[0] = float(invoice_card[0])
+        invested[0] = float(invested[0])
+
+    import ipdb
+
+    ipdb.set_trace()
+
+    return (
+        income,
+        return_money,
+        rescue,
+        expense,
+        invoice_card,
+        invested,
+    )
 
 
 def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     rows = dt.count().Data
+    column = len(dt.columns)
 
-    processing_tag_and_subtags(dt, rows)
-    processing_income(dt, rows)
-    processing_return_money(dt, rows)
-    processing_rescue(dt, rows)
-    processing_expense(dt, rows)
-    processing_invoice_card(dt, rows)
-    processing_invested(dt, rows)
+    sub_tags, tags = processing_tag_and_subtags(dt, rows)
+
+    dt.insert(column, SHEET_COLUMNS_NAME[0], sub_tags)
+    column += 1
+    dt.insert(column, SHEET_COLUMNS_NAME[1], tags)
+    column += 1
+
+    values_list = analysis_cash_inflows_and_outflows_dataframe(dt, rows)
+
+    for index, header in enumerate(SHEET_COLUMNS_NAME[2:]):
+        dt.insert(column, header, values_list[index])
+        column += 1
 
     return dt
 
@@ -224,5 +200,8 @@ def generate_csv(dt: pd.DataFrame, file_name: str):
     file_name = "_".join(format_name)
 
     path = f"{csv_path}{file_name}"
+    import ipdb
+
+    ipdb.set_trace()
 
     dt.to_csv(path, index=False)
