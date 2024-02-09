@@ -153,12 +153,12 @@ def analysis_cash_inflows_and_outflows_dataframe(dt: pd.DataFrame, rows: int):
 
     with localcontext() as ctx:
         ctx.prec = 10
-        income[0] = float(income[0])
-        return_money[0] = float(return_money[0])
-        rescue[0] = float(rescue[0])
-        expense[0] = float(expense[0])
-        invoice_card[0] = float(invoice_card[0])
-        invested[0] = float(invested[0])
+        income[0] = str(income[0]).replace(".", ",")
+        return_money[0] = str(return_money[0]).replace(".", ",")
+        rescue[0] = str(rescue[0]).replace(".", ",")
+        expense[0] = str(expense[0]).replace(".", ",")
+        invoice_card[0] = str(invoice_card[0]).replace(".", ",")
+        invested[0] = str(invested[0]).replace(".", ",")
 
     return (
         income,
