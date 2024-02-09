@@ -16,6 +16,7 @@ def write_sheet_headers(ws: Worksheet, column: int):
 
 def cash_inflows_and_outflows_analysis(ws: Worksheet, values_list: list):
     fmt_cash_outflow = cell_format(backgroundColor=color(206 / 255, 76 / 255, 61 / 255))
+    fmt_invoice_card = cell_format(backgroundColor=color(249 / 255, 123 / 255, 112 / 255))
     fmt_cash_inflow = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
 
     income = 0
@@ -36,7 +37,7 @@ def cash_inflows_and_outflows_analysis(ws: Worksheet, values_list: list):
 
         elif "pagamento de fatura" in description.lower() and convert_number < 0:
             invoice_card += convert_number
-            format_cell_range(ws, f"A{line}:D{line}", fmt_cash_outflow)
+            format_cell_range(ws, f"A{line}:D{line}", fmt_invoice_card)
 
         elif convert_number < 0:
             expense += convert_number
