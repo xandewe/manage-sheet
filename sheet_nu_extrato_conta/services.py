@@ -160,10 +160,6 @@ def analysis_cash_inflows_and_outflows_dataframe(dt: pd.DataFrame, rows: int):
         invoice_card[0] = float(invoice_card[0])
         invested[0] = float(invested[0])
 
-    import ipdb
-
-    ipdb.set_trace()
-
     return (
         income,
         return_money,
@@ -200,8 +196,5 @@ def generate_csv(dt: pd.DataFrame, file_name: str):
     file_name = "_".join(format_name)
 
     path = f"{csv_path}{file_name}"
-    import ipdb
-
-    ipdb.set_trace()
 
     dt.to_csv(path, index=False)
