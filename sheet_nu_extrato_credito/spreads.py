@@ -54,3 +54,11 @@ def cash_inflows_and_outflows_analysis(ws: Worksheet, values_list: list):
     ws.update_cell(2, 9, discount_convert)
 
     return (expense_credit_convert, payment_convert, discount_convert)
+
+
+def write_values_in_sheet(ws: Worksheet, values: tuple):
+    col = ws.find("Tag", in_row=1).col
+
+    for item in values:
+        col += 1
+        ws.update_cell(2, col, item)
