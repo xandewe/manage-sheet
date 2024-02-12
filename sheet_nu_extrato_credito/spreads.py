@@ -1,13 +1,11 @@
-from utils import worksheet
 from gspread.worksheet import Worksheet
-from . import key, SHEET_COLUMNS_NAME
+from . import SHEET_COLUMNS_NAME
 from gspread_formatting import (
     CellFormat as cell_format,
     Color as color,
     format_cell_range,
 )
 from decimal import Decimal, localcontext
-from gspread.exceptions import SpreadsheetNotFound
 
 
 def write_sheet_headers(ws: Worksheet, column: int):
