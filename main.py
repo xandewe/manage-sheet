@@ -12,7 +12,7 @@ def sheet_nu_extrato_credito(key):
     )
     from exceptions import WorksheetException
 
-    option = "\n1 - PROCESSAMENTO SHEET POR MES\n2 - POPULAR DB\n0 - SAIR\n"
+    option = "\n1 - PROCESSAMENTO SHEET POR MES\n2 - POPULAR DB\n3 - GERAR CSV PROCESSADO\n0 - SAIR\n"
 
     while True:
         print(f"\nDeseja qual operação (CREDITO): {option}")
@@ -61,6 +61,45 @@ def sheet_nu_extrato_credito(key):
 
             if file_csv:
                 services.populate_database_with_credit(file_csv)
+
+            else:
+                print("\nArquivo não encontrado no diretório")
+
+        if opc == 3:
+            print("\nVerifique se o arquivo CSV está presente em package.csv")
+            month = (
+                input(
+                    f"Insira o mês desejado (ex: 01) pressione enter para {standard_month}: "
+                ).strip()
+                or standard_month
+            )
+            year = (
+                input(
+                    f"Insira o ano desejado (ex: 2023) pressione enter para {standard_year}: "
+                ).strip()
+                or standard_year
+            )
+
+            files = os.listdir(PACKAGE_PATH)
+
+            file_csv = ""
+
+            month = f"0{month}" if len(month) == 1 else month
+
+            for file in files:
+                file_csv = f"nubank-{year}-{month}.csv"
+                if file_csv in file:
+                    file_csv = file
+                    print(f"\nARQUIVO ENCONTRADO {file}\n")
+                    break
+
+            if file_csv:
+                path = f"{PACKAGE_PATH}/{file_csv}"
+                dt = read_csv(path)
+                # import ipdb; ipdb.set_trace()
+                # dt_formatted = services.processing_csv_data(dt)
+                # services.generate_csv(dt_formatted, file_csv)
+                print(f"\nARQUIVO GERADO EM {csv_path}\n")
 
             else:
                 print("\nArquivo não encontrado no diretório")
