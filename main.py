@@ -1,7 +1,15 @@
 def sheet_nu_extrato_credito(key):
     from sheet_nu_extrato_credito import spreads, services
     import os
-    from utils import verify_sheet
+    from utils import (
+        verify_sheet,
+        read_csv,
+        standard_year,
+        standard_month,
+        MONTH_LIST,
+        PACKAGE_PATH,
+        csv_path,
+    )
     from exceptions import WorksheetException
 
     option = "\n1 - PROCESSAMENTO SHEET POR MES\n2 - POPULAR DB\n0 - SAIR\n"
@@ -62,17 +70,17 @@ def sheet_nu_extrato_credito(key):
 
 
 def sheet_nu_extrato_conta(key):
-    from sheet_nu_extrato_conta import (
-        spreads,
-        services,
+    from sheet_nu_extrato_conta import spreads, services
+    import os
+    from utils import (
+        verify_sheet,
+        read_csv,
         MONTH_LIST,
         PACKAGE_PATH,
         standard_month,
         standard_year,
         csv_path,
     )
-    import os
-    from utils import verify_sheet
     from exceptions import WorksheetException
 
     option = "\n1 - PROCESSAMENTO SHEET POR MES\n2 - POPULAR DB\n3 - GERAR CSV PROCESSADO\n4 - FORMATAR SHEETS COM CORES\n0 - VOLTAR\n"
@@ -163,7 +171,7 @@ def sheet_nu_extrato_conta(key):
 
             if file_csv:
                 path = f"{PACKAGE_PATH}/{file_csv}"
-                dt = services.read_csv(path)
+                dt = read_csv(path)
                 dt_formatted = services.processing_csv_data(dt)
                 services.generate_csv(dt_formatted, file_csv)
                 print(f"\nARQUIVO GERADO EM {csv_path}\n")
