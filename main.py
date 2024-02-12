@@ -2,7 +2,7 @@ def sheet_nu_extrato_credito():
     from sheet_nu_extrato_credito import spreads, services
     import os
 
-    option = "\n1 - PROCESSAMENTO POR MES\n2 - POPULAR DB\n0 - SAIR\n"
+    option = "\n1 - PROCESSAMENTO SHEET POR MES\n2 - POPULAR DB\n0 - SAIR\n"
 
     while True:
         print(f"\nDeseja qual operação (CREDITO): {option}")
