@@ -6,7 +6,6 @@ def sheet_nu_extrato_credito(key):
         read_csv,
         standard_year,
         standard_month,
-        MONTH_LIST,
         PACKAGE_PATH,
         csv_path,
     )
@@ -42,15 +41,25 @@ def sheet_nu_extrato_credito(key):
                 print(err)
 
         elif opc == 2:
-            path = "./package_csv"
-
             print("\nVerifique se o arquivo CSV está presente em package.csv")
-            month = input("Insira o mês desejado (ex: 01): ").strip()
-            year = input("Insira o ano desejado (ex: 2023): ").strip()
+            month = (
+                input(
+                    f"Insira o mês desejado (ex: 01) pressione enter para {standard_month}: "
+                ).strip()
+                or standard_month
+            )
+            year = (
+                input(
+                    f"Insira o ano desejado (ex: 2023) pressione enter para {standard_year}: "
+                ).strip()
+                or standard_year
+            )
 
-            files = os.listdir(path)
+            files = os.listdir(PACKAGE_PATH)
 
             file_csv = ""
+
+            month = f"0{month}" if len(month) == 1 else month
 
             for file in files:
                 file_csv = f"nubank-{year}-{month}.csv"
