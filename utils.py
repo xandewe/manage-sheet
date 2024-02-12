@@ -3,6 +3,7 @@ import google.auth
 from gspread.exceptions import SpreadsheetNotFound
 from exceptions import WorksheetException
 from sheet_nu_extrato_conta import MONTH_LIST
+import pandas as pd
 
 
 def worksheet(key, page=0):
@@ -43,8 +44,8 @@ def verify_sheet(page: int, key: str):
 
     values_list = worksheet infos wihout headers
 
-    quantity_columns = numeric value the columns quantity 
-    
+    quantity_columns = numeric value the columns quantity
+
     return: is sliced ​​to remove the header and return only the data
     """
     try:
@@ -62,3 +63,12 @@ def verify_sheet(page: int, key: str):
         raise WorksheetException(f"Dados não encontrados!")
 
     return (ws, values_list[1:], quantity_columns)
+
+
+def read_csv(file: str) -> pd.DataFrame:
+    try:
+        data_frame = pd.read_csv(file)
+    except FileNotFoundError as _:
+        raise FileNotFoundError(f"Arquivo {file} não encontrado")
+
+    return data_frame
