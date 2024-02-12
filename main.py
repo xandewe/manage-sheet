@@ -1,6 +1,8 @@
-def sheet_nu_extrato_credito():
+def sheet_nu_extrato_credito(key):
     from sheet_nu_extrato_credito import spreads, services
     import os
+    from utils import verify_sheet
+    from exceptions import WorksheetException
 
     option = "\n1 - PROCESSAMENTO SHEET POR MES\n2 - POPULAR DB\n0 - SAIR\n"
 
@@ -20,8 +22,16 @@ def sheet_nu_extrato_credito():
 
             print("PROCESSANDO DADOS NO SHEET...")
 
-            spreads.calculate_expense_credit(12 + month)
-            spreads.calculate_payment(12 + month)
+            try:
+                month += 12
+                ws, values_list, quantity_columns = verify_sheet(month, key)
+                spreads.write_sheet_headers(ws, quantity_columns)
+                values_calc = spreads.cash_inflows_and_outflows_analysis(
+                    ws, values_list
+                )
+                spreads.write_values_in_sheet(ws, values_calc)
+            except WorksheetException as err:
+                print(err)
 
         elif opc == 2:
             path = "./package_csv"
@@ -86,7 +96,9 @@ def sheet_nu_extrato_conta(key):
             try:
                 ws, values_list, quantity_columns = verify_sheet(month, key)
                 spreads.write_sheet_headers(ws, quantity_columns)
-                values_calc = spreads.cash_inflows_and_outflows_analysis(ws, values_list)
+                values_calc = spreads.cash_inflows_and_outflows_analysis(
+                    ws, values_list
+                )
                 spreads.write_values_in_sheet(ws, values_calc)
             except WorksheetException as err:
                 print(err)
@@ -170,10 +182,12 @@ def sheet_nu_extrato_conta(key):
 
             try:
                 ws, values_list, quantity_columns = verify_sheet(month, key)
-                values_calc = spreads.cash_inflows_and_outflows_analysis(ws, values_list)
+                values_calc = spreads.cash_inflows_and_outflows_analysis(
+                    ws, values_list
+                )
             except WorksheetException as err:
                 print(err)
-        
+
         else:
             print(f"\nOpção inválida digite o número correto de sua opção: {option}")
 
@@ -204,7 +218,7 @@ def main():
             break
 
         if opc == 1:
-            sheet_nu_extrato_credito()
+            sheet_nu_extrato_credito(key)
 
         elif opc == 2:
             sheet_nu_extrato_conta(key)
