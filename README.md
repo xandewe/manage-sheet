@@ -21,6 +21,7 @@ A aplicação em Python proposta visa simplificar o gerenciamento financeiro ao 
 - Gspread-formatting
 - GCP
 - Google-auth
+- Pandas
 
 ## Funcionalidades
 - Criar páginas padronizadas no Google Sheets, destinadas a armazenar dados em formato CSV referentes aos diferentes meses associados às informações da conta e aos dados de crédito
