@@ -1,5 +1,6 @@
 from utils import worksheet
-from . import key
+from gspread.worksheet import Worksheet
+from . import key, SHEET_COLUMNS_NAME
 from gspread_formatting import (
     CellFormat as cell_format,
     Color as color,
@@ -7,6 +8,12 @@ from gspread_formatting import (
 )
 from decimal import Decimal, localcontext
 from gspread.exceptions import SpreadsheetNotFound
+
+
+def write_sheet_headers(ws: Worksheet, column: int):
+    for item in SHEET_COLUMNS_NAME:
+        column += 1
+        ws.update_cell(1, column, item)
 
 
 def calculate_expense_credit(page=1):
@@ -26,10 +33,6 @@ def calculate_expense_credit(page=1):
         return None
 
     fmt = cell_format(backgroundColor=color(206 / 255, 76 / 255, 61 / 255))
-
-    ws.update_cell(1, 5, "Sub Tag")
-    ws.update_cell(1, 6, "Tag")
-    ws.update_cell(1, 7, "Total gasto")
 
     expense_credit = 0
     line = 2
@@ -66,9 +69,6 @@ def calculate_payment(page=1):
         return None
 
     fmt = cell_format(backgroundColor=color(78 / 255, 127 / 255, 25 / 255))
-
-    ws.update_cell(1, 8, "Pagamento")
-    ws.update_cell(1, 9, "Desconto Ant.")
 
     payment = 0
     discount = 0
