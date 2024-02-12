@@ -67,15 +67,6 @@ def populate_database_with_account(file_csv: str):
         print(f"Arquivo não encontrado no diretório | {file_path}")
 
 
-def read_csv(file: str) -> pd.DataFrame:
-    try:
-        data_frame = pd.read_csv(file)
-    except FileNotFoundError as _:
-        raise FileNotFoundError(f"Arquivo {file} não encontrado")
-
-    return data_frame
-
-
 def processing_tag_and_subtags(dt: pd.DataFrame, rows: int) -> None:
     description_list = dt["Descrição"]
     sub_tags = ["" for _ in range(rows)]
