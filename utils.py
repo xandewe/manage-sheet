@@ -37,6 +37,14 @@ def create_template(key: str):
 
 def verify_sheet(page: int, key: str):
     """
+    That function was created for make a connection with worksheet and return infos needs. How:
+
+    ws = worksheet Instance
+
+    values_list = worksheet infos wihout headers
+
+    quantity_columns = numeric value the columns quantity 
+    
     return: is sliced ​​to remove the header and return only the data
     """
     try:
