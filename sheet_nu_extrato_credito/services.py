@@ -5,7 +5,7 @@ import csv
 import os
 from decimal import Decimal
 import requests
-from . import url
+from utils import url
 
 
 def update_all_pages():

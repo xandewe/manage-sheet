@@ -1,11 +1,11 @@
 from gspread import WorksheetNotFound
-from . import spreads, ALIMENTACAO, CASA, TRANSPORTE, csv_path
+from utils import ALIMENTACAO, CASA, TRANSPORTE, csv_path, url
 from time import sleep
 import csv
 import os
 from decimal import Decimal, localcontext
 import requests
-from . import url, SHEET_COLUMNS_NAME
+from . import SHEET_COLUMNS_NAME, spreads
 import pandas as pd
 
 
