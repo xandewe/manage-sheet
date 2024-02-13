@@ -125,7 +125,6 @@ def generate_csv(dt: pd.DataFrame, file_name: str):
     format_name = file_name.split("-")
     format_name.insert(1,"PROCCESSED")
     file_name = "-".join(format_name)
-    import ipdb; ipdb.set_trace()
 
     path = f"{csv_path}{file_name}"
 
