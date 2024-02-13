@@ -20,7 +20,9 @@ CASA = [
     "CLARO",
 ]
 TRANSPORTE = ["UBER"]
-ALIMENTACAO = ["TAUSTE", "SWIFT", "KAWAKAMI", "IFOOD", "IFD"]
+ALIMENTACAO = ["TAUSTE", "SWIFT", "KAWAKAMI", "IFOOD", "IFD", "VALDECIR FERREIRA"]
+ASSINATURAS = ["SPOTIFY"]
+EDUCACAO = ["DESCOMPLICA"]
 
 MONTH_LIST = [
     "JAN",
@@ -128,6 +130,16 @@ def processing_tag_and_subtags(series: pd.Series, rows: int) -> None:
         for item in CASA:
             if item in description.upper():
                 tags[index] = "Casa"
+                sub_tags[index] = item.title()
+
+        for item in EDUCACAO:
+            if item in description.upper():
+                tags[index] = "Educação"
+                sub_tags[index] = item.title()
+
+        for item in ASSINATURAS:
+            if item in description.upper():
+                tags[index] = "Assinaturas"
                 sub_tags[index] = item.title()
 
     return (sub_tags, tags)
