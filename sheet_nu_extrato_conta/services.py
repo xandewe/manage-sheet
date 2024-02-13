@@ -1,5 +1,5 @@
 from gspread import WorksheetNotFound
-from utils import ALIMENTACAO, CASA, TRANSPORTE, csv_path, url
+from utils import csv_path, url, processing_tag_and_subtags
 from time import sleep
 import csv
 import os
@@ -65,33 +65,6 @@ def populate_database_with_account(file_csv: str):
 
     else:
         print(f"Arquivo não encontrado no diretório | {file_path}")
-
-
-def processing_tag_and_subtags(dt: pd.DataFrame, rows: int) -> None:
-    description_list = dt["Descrição"]
-    sub_tags = ["" for _ in range(rows)]
-    tags = ["" for _ in range(rows)]
-
-    for index, description in enumerate(description_list):
-        for item in ALIMENTACAO:
-            if item in description.upper():
-                tags[index] = "Alimentação"
-                if item == "IFOOD":
-                    sub_tags[index] = item.title()
-                else:
-                    sub_tags[index] = "Mercado"
-
-        for item in TRANSPORTE:
-            if item in description.upper():
-                tags[index] = "Transporte"
-                sub_tags[index] = item.title()
-
-        for item in CASA:
-            if item in description.upper():
-                tags[index] = "Casa"
-                sub_tags[index] = item.title()
-
-    return (sub_tags, tags)
 
 
 def analysis_cash_inflows_and_outflows_dataframe(dt: pd.DataFrame, rows: int):
@@ -164,8 +137,9 @@ def analysis_cash_inflows_and_outflows_dataframe(dt: pd.DataFrame, rows: int):
 def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     rows = dt.count().Data
     column = len(dt.columns)
+    description_list = dt["Descrição"]
 
-    sub_tags, tags = processing_tag_and_subtags(dt, rows)
+    sub_tags, tags = processing_tag_and_subtags(description_list, rows)
 
     dt.insert(column, SHEET_COLUMNS_NAME[0], sub_tags)
     column += 1

@@ -20,7 +20,7 @@ CASA = [
     "CLARO",
 ]
 TRANSPORTE = ["UBER"]
-ALIMENTACAO = ["TAUSTE", "SWIFT", "KAWAKAMI", "IFOOD"]
+ALIMENTACAO = ["TAUSTE", "SWIFT", "KAWAKAMI", "IFOOD", "IFD"]
 
 MONTH_LIST = [
     "JAN",
@@ -105,3 +105,29 @@ def read_csv(file: str) -> pd.DataFrame:
         raise FileNotFoundError(f"Arquivo {file} não encontrado")
 
     return data_frame
+
+
+def processing_tag_and_subtags(series: pd.Series, rows: int) -> None:
+    sub_tags = ["" for _ in range(rows)]
+    tags = ["" for _ in range(rows)]
+
+    for index, description in enumerate(series):
+        for item in ALIMENTACAO:
+            if item in description.upper():
+                tags[index] = "Alimentação"
+                if item == "IFOOD" or item == "IFD":
+                    sub_tags[index] = "Ifood"
+                else:
+                    sub_tags[index] = "Mercado"
+
+        for item in TRANSPORTE:
+            if item in description.upper():
+                tags[index] = "Transporte"
+                sub_tags[index] = item.title()
+
+        for item in CASA:
+            if item in description.upper():
+                tags[index] = "Casa"
+                sub_tags[index] = item.title()
+
+    return (sub_tags, tags)
