@@ -11,7 +11,7 @@ def sheet_nu_extrato_credito(key):
     )
     from exceptions import WorksheetException
 
-    option = "\n1 - PROCESSAMENTO SHEET POR MES\n2 - POPULAR DB\n3 - GERAR CSV PROCESSADO\n0 - SAIR\n"
+    option = "\n1 - PROCESSAMENTO SHEET POR MES\n2 - POPULAR DB\n3 - GERAR CSV PROCESSADO\n4 - FORMATAR SHEETS COM CORES\n0 - VOLTAR\n"
 
     while True:
         print(f"\nDeseja qual operação (CREDITO): {option}")
@@ -111,6 +111,24 @@ def sheet_nu_extrato_credito(key):
 
             else:
                 print("\nArquivo não encontrado no diretório")
+
+        if opc == 4:
+            month = int(
+                input(
+                    "\nDigite o numero do mês que deseja processar os dados (CONTA): "
+                )
+            )
+
+            print("PROCESSANDO DADOS NO SHEET...")
+
+            try:
+                month += 12
+                ws, values_list, quantity_columns = verify_sheet(month, key)
+                values_calc = spreads.cash_inflows_and_outflows_analysis(
+                    ws, values_list
+                )
+            except WorksheetException as err:
+                print(err)
 
         else:
             print(f"\nOpção inválida digite o número correto de sua opção: {option}")
