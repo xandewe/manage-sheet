@@ -144,13 +144,12 @@ def processing_csv_data(dt: pd.DataFrame) -> pd.DataFrame:
     dt.insert(column, SHEET_COLUMNS_NAME[0], sub_tags)
     column += 1
     dt.insert(column, SHEET_COLUMNS_NAME[1], tags)
-    column += 1
 
     values_list = analysis_cash_inflows_and_outflows_dataframe(dt, rows)
 
     for index, header in enumerate(SHEET_COLUMNS_NAME[2:]):
-        dt.insert(column, header, values_list[index])
         column += 1
+        dt.insert(column, header, values_list[index])
 
     return dt
 
