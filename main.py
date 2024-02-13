@@ -105,9 +105,8 @@ def sheet_nu_extrato_credito(key):
             if file_csv:
                 path = f"{PACKAGE_PATH}/{file_csv}"
                 dt = read_csv(path)
-                # import ipdb; ipdb.set_trace()
-                # dt_formatted = services.processing_csv_data(dt)
-                # services.generate_csv(dt_formatted, file_csv)
+                dt_formatted = services.processing_csv_data(dt)
+                services.generate_csv(dt_formatted, file_csv)
                 print(f"\nARQUIVO GERADO EM {csv_path}\n")
 
             else:
